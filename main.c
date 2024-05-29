@@ -6,8 +6,12 @@
 /*   By: asaux <asaux@student.42perpignan.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 16:20:40 by asaux             #+#    #+#             */
-/*   Updated: 2024/05/29 16:20:48 by asaux            ###   ########.fr       */
+/*   Updated: 2024/05/29 16:23:30 by asaux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-coucocucogn rjsah gvnuijdfhnfj;
+ucocucogn rjsah gvnuijdfhnfj;
+gfdg
+dfg
+__FLT_DIG__f
+gotogfgfdga
