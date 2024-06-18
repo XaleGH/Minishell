@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asaux <asaux@student.42perpignan.fr>       +#+  +:+       +#+        */
+/*   By: flmuller <flmuller@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 18:03:50 by asaux             #+#    #+#             */
 /*   Updated: 2024/06/18 12:00:32 by asaux            ###   ########.fr       */
@@ -56,5 +56,6 @@ void	pwd_builtin(void);
 
 //error.c
 void	ft_error(char *str);
+
 
 #endif
