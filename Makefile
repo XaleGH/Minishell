@@ -1,37 +1,35 @@
 NAME = minishell
-DIR_OBJ = obj/
 DIR_SRC = src/
-DIR_GNL = gnl/
+DIR_OBJ = obj/
 LIBFT = libft/libft.a
-PRINTF = printf/libftprintf.a
 CC = cc 
-CFLAGS = -Wall -Wextra -Werror -g -ggdb
-RM = rm -rf
+CFLAGS = -Wall -Wextra -Werror -ggdb 
+LDFLAGS = -lreadline
+RM = rm -f
 
-SRCS = $(wildcard $(DIR_SRC)*.c) $(wildcard $(DIR_GNL)*.c)
-OBJ = $(patsubst $(DIR_SRC)%.c,$(DIR_OBJ)%.o,$(SRCS))
+SRCS =  $(wildcard $(DIR_SRC)*.c) \
+		$(wildcard $(DIR_SRC)/parsing/*.c) \
+		$(wildcard $(DIR_SRC)/run/*.c) \
+		$(wildcard $(DIR_SRC)/builtins/*.c) \
 
-$(NAME): $(OBJ)
-		make -C ./printf
-		make -C ./libft
-		$(CC) $(CFLAGS) -o $(NAME) $(OBJ) $(LIBFT) $(PRINTF)
-
-$(DIR_OBJ):
-	@mkdir -p $(DIR_OBJ)
-
-$(DIR_OBJ)%.o: $(DIR_SRC)%.c | $(DIR_OBJ)
-	@$(CC) $(CFLAGS) -c $< -o $@
+OBJS = $(SRCS:$(DIR_SRC)%.c=$(DIR_OBJ)%.o)
 
 all: $(NAME)
 
+$(DIR_OBJ)%.o: $(DIR_SRC)%.c
+	@mkdir -p $(dir $@)
+	$(CC) $(CFLAGS) -c $< -o $@
+
+$(NAME): $(OBJS)
+	make -C ./libft
+	 $(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LIBFT) $(LDFLAGS)
+
 clean:
-		make clean -C libft
-		make clean -C printf
-		rm -rf $(DIR_OBJ)
+	make clean -C libft
+	rm -rf $(DIR_OBJ)
 
 fclean: clean
-		$(RM) $(NAME)
-		make fclean -C libft
-		make fclean -C printf
+	$(RM) $(NAME)
+	make fclean -C libft
 
-re: fclean all 
+re: fclean all
