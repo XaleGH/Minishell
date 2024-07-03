@@ -102,15 +102,12 @@ void	actu_env(char *dir, char *var, t_data *data)
 	char	*pwd;
 	int		var_len;
 	
-	i = -1;
+	i = 0;
 	var_len = (int)ft_strlen(var);
 	pwd = ft_strjoin(var, dir);
-	while (data->env[++i])
-	{
-		if (ft_strncmp(var, data->env[i], var_len))
-			break ;
-	}
+	i = search_row(data, var);
 	free(data->env[i]);
+	data->env[i] = NULL;
 	data->env[i] = ft_strdup(pwd);
 	free(pwd);
 }

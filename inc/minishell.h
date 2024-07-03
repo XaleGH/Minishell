@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flmuller <flmuller@student.42perpignan.    +#+  +:+       +#+        */
+/*   By: asaux <asaux@student.42perpignan.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 18:03:50 by asaux             #+#    #+#             */
-/*   Updated: 2024/06/18 12:00:32 by asaux            ###   ########.fr       */
+/*   Updated: 2024/07/03 18:01:12 by asaux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,9 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <errno.h>
+# include <readline/readline.h>
+# include <readline/history.h>
+
 //Struct
 
 typedef struct s_data
@@ -38,21 +41,34 @@ char	**dupenv(char **env);
 int		ft_isalldigit(char *str);
 void	free_array(char **env);
 
-//bultin/cd.c
+//bultins/cd.c
 void	cd_builtin(char **args, t_data *data);
 void	actu_env(char *dir, char *var, t_data *data);
 int		go_home(t_data *data, char *old_dir);
 int		switch_dir(char *path);
 char	*get_home(t_data *data);
 
-//builtin/echo.c
+//builtins/echo.c
 void	echo_builtin(char **args);
 
-//builtin/env.c
+//builtins/env.c
 void	env_builtin(t_data *data);
 
-//builtin/pwd.c
+//builtins/pwd.c
 void	pwd_builtin(void);
+
+//builtins/unset.c
+void	unset_builtin(char **args,  t_data *data);
+
+//builtins/export.c
+void	export_builtin(char **args, t_data *data);
+char	**add_var_env(char **env, char *arg);
+char	*recover_arg(char *arg);
+int		check_arg(char *arg);
+
+//builtins/export_sort_env.c
+char	**sort_env(char **env);
+void	sort_and_print_export(t_data *data);
 
 //error.c
 void	ft_error(char *str);
