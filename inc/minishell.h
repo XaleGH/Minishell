@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asaux <asaux@student.42perpignan.fr>       +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 18:03:50 by asaux             #+#    #+#             */
-/*   Updated: 2024/07/03 18:01:12 by asaux            ###   ########.fr       */
+/*   Updated: 2024/07/04 15:39:17 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,14 @@
 
 //Struct
 
+typedef struct s_path
+{
+	char	**cmds;
+	char	**allpaths;
+	char	*goodpath;
+	char	*subpath;
+}	t_path;
+
 typedef struct s_data
 {
 	char	**env;
@@ -36,6 +44,10 @@ void	addshlvl(t_data *data);
 int		search_row(t_data *data, char *str);
 void	edit_shlvl(t_data *data, int value, int row);
 char	**dupenv(char **env);
+
+//execute.c
+void	execute_ms(char **str, t_data *data);
+int		ft_strncmp_exact(char *s1, char *s2, int n);
 
 //utils.c
 int		ft_isalldigit(char *str);

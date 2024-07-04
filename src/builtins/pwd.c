@@ -15,6 +15,6 @@ void	pwd_builtin(void)
 	path = getcwd(path, 0);
 	if (!path)
 		ft_error("no pwd");
-	printf("%s", path);
+	printf("%s\n", path);
 	free(path);
 }
