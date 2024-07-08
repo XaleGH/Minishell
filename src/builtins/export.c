@@ -44,7 +44,7 @@ char	*recover_arg(char *arg)
 	i = 0;
 	while (arg[i] != '=')
 		i++;
-	reco_arg = malloc(sizeof(char) * i);
+	reco_arg = malloc(sizeof(char) * (i + 1));
 	j = 0;
 	while (j < i)
 	{
