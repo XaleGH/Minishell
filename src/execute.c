@@ -1,5 +1,11 @@
 #include "../inc/minishell.h"
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <sys/wait.h>
+#include <string.h>
+
 char	*extract_path(char **env)
 {
 	int	i;
@@ -57,6 +63,7 @@ void	exec_cmd(char **cmd, char **env)
 		printf("exec error\n");
 		return ;
 	}
+	return;
 }
 
 int	ft_strncmp_exact(char *s1, char *s2, int n)
@@ -75,7 +82,26 @@ int	ft_strncmp_exact(char *s1, char *s2, int n)
 	return (0);
 }
 
-void	execute_ms(char **str, t_data *data)
+int	is_builtin(char *str)
+{
+	if (ft_strncmp_exact(str, "cd", 2) == 0)
+		return (0);
+	else if (ft_strncmp_exact(str, "echo", 4) == 0)
+		return (0);
+	else if (ft_strncmp_exact(str, "env", 3) == 0)
+		return (0);
+	else if (ft_strncmp_exact(str, "export", 6) == 0)
+		return (0);
+	else if (ft_strncmp_exact(str, "pwd", 3) == 0)
+		return (0);
+	else if (ft_strncmp_exact(str, "unset", 5) == 0)
+		return (0);
+	else if (ft_strncmp_exact(str, "exit", 4) == 0)
+		return (0);
+	return(1);
+}
+
+void	exec_builtin(char **str, t_data *data)
 {
 	if (ft_strncmp_exact(str[0], "cd", 2) == 0)
 		cd_builtin(str, data);
@@ -91,6 +117,63 @@ void	execute_ms(char **str, t_data *data)
 		unset_builtin(str, data);
 	else if (ft_strncmp_exact(str[0], "exit", 4) == 0)
 		exit_builtin(str, data);
+}
+
+/*void execute_minishell(char **args)
+{
+	pid_t pid;
+	int status;
+
+	// Forker un nouveau processus
+	pid = fork();
+
+	if (pid < 0)
+	{
+		// Erreur de fork
+		perror("fork");
+		exit(EXIT_FAILURE);
+	} 
+	else if (pid == 0) 
+	{
+		// Remplacer l'image du processus par celle de ./minishell
+		if (execve(args[0], args, NULL) == -1) 
+		{
+			perror("execve");
+			exit(EXIT_FAILURE);
+		}
+	} 
+	else 
+	{
+		// Code exécuté par le processus parent
+		// Attendre que le processus enfant se termine
+		if (waitpid(pid, &status, 0) == -1) 
+		{
+			perror("waitpid");
+			exit(EXIT_FAILURE);
+		}
+
+		// Vérifier le code de sortie du processus enfant
+		if (WIFEXITED(status)) 
+		{
+			int exit_status = WEXITSTATUS(status);
+			printf("Le processus enfant s'est terminé avec le code de sortie %d\n", exit_status);
+		} 
+		else 
+		{
+			printf("Le processus enfant ne s'est pas terminé normalement\n");
+		}
+	}
+}*/
+
+
+void	execute_ms(char **str, t_data *data)
+{
+	if (!str[0])
+		return;
+	//else if (str[0][0] == '.' && str[0][1] == '/')
+		//execute_minishell(str);
+	else if (is_builtin(str[0]) == 0)
+		exec_builtin(str, data);
 	else
 		exec_cmd(str, data->env);
 }

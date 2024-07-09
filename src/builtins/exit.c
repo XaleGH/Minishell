@@ -7,7 +7,7 @@ void	exit_builtin(char **args, t_data *data)
 
 	i = 0;
 	num = 0;
-	if (args[2])
+	if (args[2] != NULL)
 	{
 		printf("bash : %s : too many arguments\n", args[0]);
 		return ;

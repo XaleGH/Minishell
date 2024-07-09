@@ -13,13 +13,25 @@
 void	echo_builtin(char **args)
 {
 	int	i;
+	int	flag;
 
-	i = 0;
-	if (args[1][i])
+	i = 1;
+	flag = 0;
+	if (args[i])
 	{
-		if (ft_strncmp(args[1], "-n", 2) == 0)
-			printf("%s", args[2]);
-		else
-			printf("%s\n",args[1]);
+		while (ft_strncmp_exact(args[i], "-n", 2) == 0)
+		{
+			i++;
+			flag = 1;
+		}
+		while (args[i])
+		{
+			printf("%s", args[i]);
+			i++;
+			if (args[i])
+				printf(" ");
+		}
 	}
+	if (flag == 0)
+		printf("\n");
 }
