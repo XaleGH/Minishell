@@ -50,7 +50,7 @@ int	search_row(t_data *data, char *str)
 	{
 		if (ft_strncmp(str, data->env[i], ft_strlen(str)) == 0
 			&& (data->env[i][ft_strlen(str) == '='
-			|| data->env[i][ft_strlen(str)] == '\0']))
+				|| data->env[i][ft_strlen(str)] == '\0']))
 			return (i);
 		i++;
 	}

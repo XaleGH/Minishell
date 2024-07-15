@@ -45,94 +45,41 @@ void	free_array(char **array)
 	array = NULL;
 }
 
-/*
- * Search if the given pos of string is between simple or double quotes.
- *
- * return 1 if the pos given is between simple or double quotes.
- *
- * @param char. pointer to the string.
- * @param int. position in the string.
- *
- * @return int. return 1 if it's between simple quote
- * 2 if it's between double quote 0 if it is not.
- */
-int	btwn_quote(char *str, int poschar)
+int	ft_strlen_array(char **array)
 {
-	int	dquote;
-	int squote;
 	int i;
 
-	i = -1;
-	dquote = 0;
-	squote = 0;
-	while (str[++i])
-	{
-		if (str[i] == '"' && !squote)
-		{
-			if (dquote == 1)
-				dquote = 0;
-			else 
-				dquote = 1;
-		}
-		else if (str[i] == '\'' && !dquote)
-		{
-			if (squote == 1)
-				squote = 0;
-			else 
-				squote = 1;
-		}
-		else if (i == poschar && (dquote || squote))
-		{
-			if (dquote)
-				return(2);
-			return (1);
-		}
-	}
-	return (0);
+	i = 0;
+	while (array[i])
+		i++;
+	return (i);
 }
 
-/*
- * Search if the given pos of string is between simple or double quotes.
- *
- * return 1 if the pos given is between simple or double quotes.
- *
- * @param char. pointer to the string.
- * @param int. position in the string.
- *
- * @return int. return 1 if it's between simple quote 2
- * if it's between double quote 0 if it is not.
- */
-int	is_quoted_arg(char *str, int poschar)
+char	**rm_from_array(char **array, int i)
 {
-	int	dquote;
-	int squote;
-	int i;
+	int		j;
+	int		k;
+	int		l;
+	char	**newarray;
 
-	i = -1;
-	dquote = 0;
-	squote = 0;
-	while (str[++i])
+	j = -1;
+	l = 0;
+	newarray = ft_calloc(sizeof(char*), ft_strlen_array(array));
+	if (!newarray)
+		return(NULL);
+	while (array[++j])
 	{
-		if (str[i] == '"' && !squote && (str[i + 1] == ' ' || !str[i + 1]))
+		if (j != i && array[j])
 		{
-			if (dquote == 1)
-				dquote = 0;
-			else 
-				dquote = 1;
-		}
-		else if (str[i] == '\'' && !dquote && (str[i + 1] == ' ' || !str[i + 1]))
-		{
-			if (squote == 1)
-				squote = 0;
-			else 
-				squote = 1;
-		}
-		else if (i == poschar && (dquote || squote))
-		{
-			if (dquote)
-				return(2);
-			return (1);
+			k = -1;
+			newarray[l] = ft_calloc(sizeof(char), ft_strlen(array[j]) + 1);
+			if (!newarray[l])
+				return(free_array(newarray), NULL);
+			while (array[j][++k])
+				newarray[l][k] = array[j][k];
+			newarray[l++][k] = '\0';
 		}
 	}
-	return (0);
+	free_array(array);
+	return (newarray);
 }

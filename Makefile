@@ -22,7 +22,7 @@ $(DIR_OBJ)%.o: $(DIR_SRC)%.c
 
 $(NAME): $(OBJS)
 	make -C ./libft
-	 $(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LIBFT) $(LDFLAGS)
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LIBFT) $(LDFLAGS)
 
 clean:
 	make clean -C libft

@@ -3,7 +3,8 @@
 /*
  * Handles errors by printing an error message and exiting the program.
  *
- * This function sets the errno to 1, prints the provided error message along with the error description,
+ * This function sets the errno to 1, prints the provided error message
+ * along with the error description,
  * and then exits the program with a status code of 1.
  *
  * @param str Pointer to a string containing the error message to be printed.
