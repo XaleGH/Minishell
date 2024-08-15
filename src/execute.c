@@ -43,7 +43,7 @@ char	*get_path(char **cmd, char **env, t_path *path)
 	return (NULL);
 }
 
-void	exec_cmd(char **cmd, char **env)
+/* void	exec_cmd(char **cmd, char **env)
 {
 	t_path	*path;
 	char	*pathfind;
@@ -62,6 +62,63 @@ void	exec_cmd(char **cmd, char **env)
 		free(path);
 		printf("exec error\n");
 		return ;
+	}
+	return;
+} */
+
+void	exec_cmd(char **cmd, char **env)
+{
+	t_path	*path;
+	char	*pathfind;
+	pid_t pid;
+	int status;
+	int	exit_status;
+
+	path = malloc(sizeof(t_path));
+	if (access(cmd[0], F_OK | X_OK) == 0)
+		pathfind = ft_strdup(cmd[0]);
+	else
+	{
+		pathfind = get_path(cmd, env, path);
+		if (!pathfind)
+		{
+			free(path);
+			printf("%s: command not found\n", cmd[0]);
+			return ;
+		}
+	}
+	pid = fork();
+	if (pid < 0)
+	{
+		perror("fork");
+		exit(EXIT_FAILURE);
+	}
+	else if (pid == 0) 
+	{
+		if (execve(pathfind, cmd, env) == -1)
+		{
+		free(pathfind);
+		free(path);
+		printf("exec error\n");
+		return ;
+		}
+	}
+	else 
+	{
+		if (waitpid(pid, &status, 0) == -1) 
+		{
+			perror("waitpid");
+			exit(EXIT_FAILURE);
+		}
+		if (WIFEXITED(status)) 
+		{//a supprimer
+			exit_status = WEXITSTATUS(status);
+			printf("Le processus enfant s'est terminé avec le code de sortie %d\n", exit_status);//a supprimer
+		}//a supprimer
+		else 
+		{//a supprimer
+			printf("Le processus enfant ne s'est pas terminé normalement\n");//a supprimer
+		}//a supprimer
 	}
 	return;
 }
@@ -119,59 +176,10 @@ void	exec_builtin(char **str, t_data *data)
 		exit_builtin(str, data);
 }
 
-/*void execute_minishell(char **args)
-{
-	pid_t pid;
-	int status;
-
-	// Forker un nouveau processus
-	pid = fork();
-
-	if (pid < 0)
-	{
-		// Erreur de fork
-		perror("fork");
-		exit(EXIT_FAILURE);
-	} 
-	else if (pid == 0) 
-	{
-		// Remplacer l'image du processus par celle de ./minishell
-		if (execve(args[0], args, NULL) == -1) 
-		{
-			perror("execve");
-			exit(EXIT_FAILURE);
-		}
-	} 
-	else 
-	{
-		// Code exécuté par le processus parent
-		// Attendre que le processus enfant se termine
-		if (waitpid(pid, &status, 0) == -1) 
-		{
-			perror("waitpid");
-			exit(EXIT_FAILURE);
-		}
-
-		// Vérifier le code de sortie du processus enfant
-		if (WIFEXITED(status)) 
-		{
-			int exit_status = WEXITSTATUS(status);
-			printf("Le processus enfant s'est terminé avec le code de sortie %d\n", exit_status);
-		} 
-		else 
-		{
-			printf("Le processus enfant ne s'est pas terminé normalement\n");
-		}
-	}
-}*/
-
-
 void	execute_ms(char **str, t_data *data)
 {
 	if (!str[0])
 		return;
-	//else if (str[0][0] == '.' && str[0][1] == '/')
-		//execute_minishell(str);
 	else if (is_builtin(str[0]) == 0)
 		exec_builtin(str, data);
 	else

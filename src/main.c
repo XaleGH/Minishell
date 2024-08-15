@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: asaux <asaux@student.42perpignan.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 18:03:17 by asaux             #+#    #+#             */
-/*   Updated: 2024/07/04 14:58:04 by root             ###   ########.fr       */
+/*   Updated: 2024/08/15 14:11:45 by asaux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ int    main(int ac, char **av, char **env)
 		input = readline("minishell > ");
 		exec = ft_split(input, ' ');
 		//init_parsing(input);
+		add_history(input);
 		execute_ms(exec, &data);
 	}
 	free_array(data.env);

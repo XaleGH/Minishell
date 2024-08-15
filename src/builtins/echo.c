@@ -19,7 +19,7 @@ void	echo_builtin(char **args)
 	flag = 0;
 	if (args[i])
 	{
-		while (ft_strncmp_exact(args[i], "-n", 2) == 0)
+		while (args[i] && (ft_strncmp_exact(args[i], "-n", 2) == 0))
 		{
 			i++;
 			flag = 1;
