@@ -6,7 +6,7 @@
 /*   By: asaux <asaux@student.42perpignan.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 18:03:50 by asaux             #+#    #+#             */
-/*   Updated: 2024/07/08 15:14:38 by asaux            ###   ########.fr       */
+/*   Updated: 2024/08/17 00:06:47 by asaux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ char	**sort_env(char **env);
 void	sort_and_print_export(t_data *data);
 
 //builtins/exit.c
-void	exit_builtin(char **args, t_data *data);
+int		exit_builtin(char **args);
 
 //error.c
 void	ft_error(char *str);

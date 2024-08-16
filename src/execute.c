@@ -66,13 +66,9 @@ char	*get_path(char **cmd, char **env, t_path *path)
 	return;
 } */
 
-void	exec_cmd(char **cmd, char **env)
+char	*real_pathfind(char **cmd, char **env, char *pathfind)
 {
 	t_path	*path;
-	char	*pathfind;
-	pid_t pid;
-	int status;
-	int	exit_status;
 
 	path = malloc(sizeof(t_path));
 	if (access(cmd[0], F_OK | X_OK) == 0)
@@ -81,46 +77,38 @@ void	exec_cmd(char **cmd, char **env)
 	{
 		pathfind = get_path(cmd, env, path);
 		if (!pathfind)
-		{
-			free(path);
-			printf("%s: command not found\n", cmd[0]);
-			return ;
-		}
+			return (free(path), printf("%s: command not found\n", cmd[0]), NULL);
 	}
+	return (free(path), pathfind);
+}
+
+int	exec_cmd(char **cmd, char **env)
+{
+	char	*pathfind;
+	pid_t pid;
+	int status;
+	int	exit_status;
+
+	pathfind = NULL;
+	pathfind = real_pathfind(cmd, env, pathfind);
+	if (pathfind == NULL)
+		return (0);
 	pid = fork();
 	if (pid < 0)
-	{
-		perror("fork");
-		exit(EXIT_FAILURE);
-	}
-	else if (pid == 0) 
+		return (perror("fork"), exit(1), 0);
+	else if (pid == 0)
 	{
 		if (execve(pathfind, cmd, env) == -1)
-		{
-		free(pathfind);
-		free(path);
-		printf("exec error\n");
-		return ;
-		}
+			return (free(pathfind), printf("exec error\n"), 0);
 	}
 	else 
 	{
-		if (waitpid(pid, &status, 0) == -1) 
-		{
-			perror("waitpid");
-			exit(EXIT_FAILURE);
-		}
+		if (waitpid(pid, &status, 0) == -1)
+			return (perror("waitpid"), exit(1) ,0);
 		if (WIFEXITED(status)) 
-		{//a supprimer
 			exit_status = WEXITSTATUS(status);
-			printf("Le processus enfant s'est terminé avec le code de sortie %d\n", exit_status);//a supprimer
-		}//a supprimer
-		else 
-		{//a supprimer
-			printf("Le processus enfant ne s'est pas terminé normalement\n");//a supprimer
-		}//a supprimer
 	}
-	return;
+	return (0);
 }
 
 int	ft_strncmp_exact(char *s1, char *s2, int n)
@@ -173,7 +161,7 @@ void	exec_builtin(char **str, t_data *data)
 	else if (ft_strncmp_exact(str[0], "unset", 5) == 0)
 		unset_builtin(str, data);
 	else if (ft_strncmp_exact(str[0], "exit", 4) == 0)
-		exit_builtin(str, data);
+		exit_builtin(str);
 }
 
 void	execute_ms(char **str, t_data *data)
