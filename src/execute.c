@@ -77,20 +77,20 @@ char	*real_pathfind(char **cmd, char **env, char *pathfind)
 	{
 		pathfind = get_path(cmd, env, path);
 		if (!pathfind)
-			return (free(path), printf("%s: command not found\n", cmd[0]), NULL);
+			return (free(path), printf("%s: command not found\n", cmd[0]),
+				NULL);
 	}
 	return (free(path), pathfind);
 }
 
-int	exec_cmd(char **cmd, char **env)
+int	exec_cmd(char **cmd, t_data *data)
 {
 	char	*pathfind;
 	pid_t pid;
 	int status;
-	int	exit_status;
 
 	pathfind = NULL;
-	pathfind = real_pathfind(cmd, env, pathfind);
+	pathfind = real_pathfind(cmd, data->env, pathfind);
 	if (pathfind == NULL)
 		return (0);
 	pid = fork();
@@ -98,15 +98,16 @@ int	exec_cmd(char **cmd, char **env)
 		return (perror("fork"), exit(1), 0);
 	else if (pid == 0)
 	{
-		if (execve(pathfind, cmd, env) == -1)
+		if (execve(pathfind, cmd, data->env) == -1)
 			return (free(pathfind), printf("exec error\n"), 0);
 	}
 	else 
 	{
+		free(pathfind);//
 		if (waitpid(pid, &status, 0) == -1)
 			return (perror("waitpid"), exit(1) ,0);
 		if (WIFEXITED(status)) 
-			exit_status = WEXITSTATUS(status);
+			data->exit_status = WEXITSTATUS(status);
 	}
 	return (0);
 }
@@ -171,5 +172,5 @@ void	execute_ms(char **str, t_data *data)
 	else if (is_builtin(str[0]) == 0)
 		exec_builtin(str, data);
 	else
-		exec_cmd(str, data->env);
+		exec_cmd(str, data);
 }

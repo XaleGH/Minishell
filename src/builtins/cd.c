@@ -69,7 +69,7 @@ int	switch_dir(char *path)
  *
  * @return int. Returns 0 if successful, or 1 if the home directory could not be found.
  */
-int	go_home(t_data *data, char *old_dir)
+int	go_home(t_data *data)
 {
 	char *path;
 	
@@ -134,7 +134,7 @@ void	cd_builtin(char **args, t_data *data)
 	old_dir = getcwd(old_dir, 0);
 	if (!args[1])
 	{
-		if (go_home(data, old_dir) == 1)
+		if (go_home(data) == 1)
 			return ;
 	}
 	else

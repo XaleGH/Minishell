@@ -3,12 +3,13 @@ DIR_SRC = src/
 DIR_OBJ = obj/
 LIBFT = libft/libft.a
 CC = cc 
-CFLAGS = -Wall -Wextra -ggdb 
+CFLAGS = -Wall -Wextra -Werror -g -ggdb 
 LDFLAGS = -lreadline
 RM = rm -f
 
 SRCS =  $(wildcard $(DIR_SRC)*.c) \
 		$(wildcard $(DIR_SRC)/builtins/*.c) \
+		$(wildcard $(DIR_SRC)/parsing/*.c) \
 
 OBJS = $(SRCS:$(DIR_SRC)%.c=$(DIR_OBJ)%.o)
 

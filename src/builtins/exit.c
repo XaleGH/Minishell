@@ -19,7 +19,7 @@ int	exit_builtin(char **args)
 	num = 0;
 	if (count_args(args) > 2)
 		return (printf("bash : %s : too many arguments\n", args[0]), 1);
-	if (args[1])
+	if (count_args(args) == 2)
 	{
 		while (args[1][i])
 		{
