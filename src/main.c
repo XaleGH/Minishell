@@ -6,7 +6,7 @@
 /*   By: asaux <asaux@student.42perpignan.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 18:03:17 by asaux             #+#    #+#             */
-/*   Updated: 2024/08/22 16:33:43 by asaux            ###   ########.fr       */
+/*   Updated: 2024/08/23 18:44:11 by asaux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ int	check_command(char *input)
 
 int	nb_cmd(t_cmdgrp *node)
 {
-	int i;
-	t_cmdgrp *temp;
+	int			i;
+	t_cmdgrp	*temp;
 
 	i = 1;
 	temp = node;
@@ -36,27 +36,29 @@ int	nb_cmd(t_cmdgrp *node)
 
 int	main(int ac, char **av, char **env)
 {
-	t_data	data;
-	char	*input;
-	t_cmdgrp *firstnode;
+	t_data		data;
+	char		*input;
+	t_cmdgrp	*firstnode;
 
 	(void) av;
 	if (ac > 1)
-		return (printf("Error, no argument needed\n"),1);
+		return (printf("Error, no argument needed\n"), 1);
 	data.env = dupenv(env);
 	addshlvl(&data);
 	while (1)
 	{
 		input = readline("▶️  minishell > ");
-		//if (check_command(input))
-			//add_history(input);
-		firstnode = init_parsing(input);
-		if (nb_cmd(firstnode) > 1)
-			pipex(nb_cmd(firstnode), firstnode, &data);
-		else
-			execute_ms(firstnode->arg, &data);
+		if (check_command(input))
+			add_history(input);
+		firstnode = init_parsing(input, &data);
+		if (firstnode)
+		{
+			if (nb_cmd(firstnode) > 1)
+				pipex(nb_cmd(firstnode), firstnode, &data);
+			else
+				execute_ms(firstnode, &data);
+			free_nodes(firstnode);
+		}
 		free(input);
-		free_nodes(firstnode);
 	}
-	free_array(data.env);
 }

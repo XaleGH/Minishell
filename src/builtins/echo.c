@@ -3,10 +3,12 @@
 /*
  * Executes the internal "echo" command.
  *
- * This function displays the passed arguments after processing options and quotes.
+ * This function displays the passed arguments after processing options 
+ * and quotes.
  * It handles the "-n" option which suppresses the trailing newline.
  *
- * @param args Pointer to a /////t_command///// structure containing the command's arguments.
+ * @param args Pointer to a /////t_command///// structure containing the 
+ * command's arguments.
  *
  * @return void. The function does not return a value.
  */

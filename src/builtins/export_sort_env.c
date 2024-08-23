@@ -3,12 +3,15 @@
 /*
  * Sorts the environment variables alphabetically.
  *
- * This function sorts the given array of environment variables in alphabetical order
+ * This function sorts the given array of environment variables in 
+ * alphabetical order
  * using a simple bubble sort algorithm.
  *
- * @param env Pointer to an array of strings containing the environment variables.
+ * @param env Pointer to an array of strings containing the 
+ * environment variables.
  *
- * @return char**. Returns a pointer to the sorted array of environment variables.
+ * @return char**. Returns a pointer to the sorted array of 
+ * environment variables.
  */
 char	**sort_env(char **env)
 {
@@ -39,10 +42,12 @@ char	**sort_env(char **env)
 /*
  * Sorts and prints the environment variables in export format.
  *
- * This function creates a copy of the current environment variables, sorts them,
+ * This function creates a copy of the current environment variables, 
+ * sorts them,
  * and prints each variable in the format "declare -x var=value".
  *
- * @param data Pointer to a t_data structure containing the environment variables.
+ * @param data Pointer to a t_data structure containing the environment
+ * variables.
  *
  * @return void. The function does not return a value.
  */

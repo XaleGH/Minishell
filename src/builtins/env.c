@@ -5,14 +5,15 @@
  *
  * This function prints each environment variable stored in the provided array.
  *
- * @param env_cpy Pointer to an array of strings containing the environment variables.
+ * @param env_cpy Pointer to an array of strings containing the environment 
+ * variables.
  *
  * @return void. The function does not return a value.
  */
 void	env_builtin(t_data *data)
 {
 	int	i;
-	
+
 	i = 0;
 	while (data->env[i])
 	{

@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: flmuller <flmuller@student.42perpignan.    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/17 14:06:16 by flmuller          #+#    #+#             */
-/*   Updated: 2024/06/17 16:11:04 by flmuller         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "../inc/minishell.h"
 
 /*
@@ -61,7 +49,7 @@ int	search_row(t_data *data, char *str)
 	{
 		if (ft_strncmp(str, data->env[i], ft_strlen(str)) == 0
 			&& (data->env[i][ft_strlen(str) == '='
-			|| data->env[i][ft_strlen(str)] == '\0']))
+				|| data->env[i][ft_strlen(str)] == '\0']))
 			return (i);
 		i++;
 	}
@@ -89,9 +77,10 @@ void	edit_shlvl(t_data *data, int value, int row)
 	str_num = ft_itoa(value);
 	len_num = ft_strlen(str_num);
 	str = malloc(sizeof(char) * (6 + 1 + len_num));
+	str = "SHLVL=";
 	if (!str)
 		return ;
-	str = ft_strjoin("SHLVL=", str_num);
+	str = ft_strjoin(str, str_num);
 	free(data->env[row]);
 	data->env[row] = NULL;
 	data->env[row] = str;
@@ -115,7 +104,7 @@ char	**dupenv(char **env)
 	i = 0;
 	while (env[i])
 		i++;
-	dup_env = malloc(sizeof(char**) * (i + 1));
+	dup_env = malloc(sizeof(char *) * (i + 1));
 	i = 0;
 	while (env[i])
 	{

@@ -2,10 +2,10 @@
 
 int	count_args(char **args)
 {
-	int i;
+	int	i;
 
 	i = 0;
-	while(args[i])
+	while (args[i])
 		i++;
 	return (i);
 }
@@ -25,7 +25,8 @@ int	exit_builtin(char **args)
 		{
 			if (!ft_isdigit(args[1][i]))
 			{
-				printf("bash : %s : %s : numeric argument required\n", args[0], args[1]);
+				printf("bash : %s : %s : numeric argument required\n",
+					args[0], args[1]);
 				return (1);
 			}
 			else

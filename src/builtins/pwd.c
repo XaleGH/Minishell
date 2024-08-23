@@ -9,12 +9,12 @@
  */
 void	pwd_builtin(void)
 {
-	char *path;
+	char	*path;
 
 	path = NULL;
 	path = getcwd(path, 0);
 	if (!path)
-		ft_error("no pwd");
+		return (printf("no pwd\n"), exit(1));
 	printf("%s\n", path);
 	free(path);
 }

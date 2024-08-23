@@ -7,7 +7,7 @@ void	print_node(t_cmdgrp *node)
 	int	i;
 
 	i = 0;
-	printf("<<<<<<<<<NEW NODE>>>>>>>>>\ntype : %d\nstr : %s\n", node->type, node->str);
+	printf("<<<<<<<<<NEW NODE>>>>>>>>>\ntype : %d\nstr : %s\nfd : %d\n", node->type, node->str, node->fd);
 	if (node->type == 0 || node->type == 2 || node->type == 3)
 	{
 		while (node->arg[i])
