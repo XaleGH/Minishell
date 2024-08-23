@@ -10,11 +10,12 @@ int	main(int ac, char **av, char **env)
 	if (ac > 1)
 		return (printf("Error, no argument needed\n"),1);
 	data.env = dupenv(env);
+	data.exit_status = 99;
 	addshlvl(&data);
 	while (1)
 	{
 		input = readline("minishell > ");
-		init_parsing(input);
+		init_parsing(input, &data);
 	}
 	free_array(data.env);
 }

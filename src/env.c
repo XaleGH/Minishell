@@ -1,4 +1,3 @@
-
 #include "../inc/minishell.h"
 
 /*
@@ -78,9 +77,10 @@ void	edit_shlvl(t_data *data, int value, int row)
 	str_num = ft_itoa(value);
 	len_num = ft_strlen(str_num);
 	str = malloc(sizeof(char) * (6 + 1 + len_num));
+	str = "SHLVL=";
 	if (!str)
 		return ;
-	str = ft_strjoin("SHLVL=", str_num);
+	str = ft_strjoin(str, str_num);
 	free(data->env[row]);
 	data->env[row] = NULL;
 	data->env[row] = str;
@@ -104,7 +104,7 @@ char	**dupenv(char **env)
 	i = 0;
 	while (env[i])
 		i++;
-	dup_env = malloc(sizeof(char**) * (i + 1));
+	dup_env = malloc(sizeof(char *) * (i + 1));
 	i = 0;
 	while (env[i])
 	{

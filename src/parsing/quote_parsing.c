@@ -59,7 +59,7 @@ void	checkquote(char c, int *squote, int *dquote)
 		else
 			*dquote = 1;
 	}
-	else if (c == '\'' && !dquote)
+	else if (c == '\'' && !*dquote)
 	{
 		if (*squote == 1)
 			*squote = 0;

@@ -10,10 +10,13 @@ void	print_node(t_cmdgrp *node)
 	printf("<<<<<<<<<NEW NODE>>>>>>>>>\ntype : %d\nstr : %s\n", node->type, node->str);
 	if (node->type == 0 || node->type == 2 || node->type == 3)
 	{
-		while (node->arg[i])
-		{
-			printf("arg %d : @%s@\n", i, node->arg[i]);
-			i++;
+		if (node->arg[i])
+			{
+			while (node->arg[i])
+			{
+				printf("arg %d : @%s@\n", i, node->arg[i]);
+				i++;
+			}
 		}
 	}
 	else if (node->type == 1)

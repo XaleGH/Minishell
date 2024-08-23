@@ -14,20 +14,28 @@ int	find_pipe(char *str)
 	return (-1);
 }
 
-void	parse_on_pipe(t_cmdgrp *node)
+int	parse_on_pipe(t_cmdgrp *node, t_cmdgrp *firstnode, t_data *data)
 {
 	int	i;
 
 	i = find_pipe(node->str);
 	if (i != -1)
 	{
+		if (!node->str[i + 1])
+			return (parsing_error(firstnode, 0, node->str[i]), 0);
 		node->type = PIPE;
 		node->part1 = init_cmdgrp(node->str, i);
 		node->part2 = init_cmdgrp(&node->str[i + 1],
 				ft_strlen(&node->str[i + 1]));
-		parse_redexec(node->part1);
-		parse_on_pipe(node->part2);
+		if (!parse_redexec(node->part1, firstnode, data))
+			return (0);
+		if (!parse_on_pipe(node->part2, firstnode, data))
+			return (0);
 	}
 	else
-		parse_redexec(node);
+	{
+		if (!parse_redexec(node, firstnode, data))
+			return (0);
+	}
+	return (1);
 }

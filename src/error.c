@@ -13,7 +13,15 @@
  */
 void	ft_error(char *str)
 {
-	errno = 1;
 	perror(str);
 	exit(1);
+}
+
+void	parsing_error(t_cmdgrp *firstnode, int code, char c)
+{
+	free_nodes(firstnode);
+	if (code == 0)
+		printf("minishell: syntax error near unexpected token '%c'\n", c);
+	if (code == 1)
+		printf("minishell: create or open file near token '%c'\n", c);
 }

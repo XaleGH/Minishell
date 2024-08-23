@@ -19,6 +19,7 @@
 typedef struct s_data
 {
 	char	**env;
+	int		exit_status;
 }	t_data;
 
 typedef enum s_tokentype
@@ -72,6 +73,7 @@ void		pwd_builtin(void);
 
 //error.c
 void		ft_error(char *str);
+void		parsing_error(t_cmdgrp *firstnode, int code, char c);
 
 //parsing/minisplit.c
 int			mini_countword(char *s, char c);
@@ -81,33 +83,43 @@ char		**mini_split(char *s, char c);
 char		*get_word(char *s, int *i, char c);
 
 //parsing/parsing.c
-void		init_parsing(char *line);
+void		init_parsing(char *line, t_data *data);
 t_cmdgrp	*init_cmdgrp(char *line, int len);
-void		parse_redexec(t_cmdgrp *node);
+int			parse_redexec(t_cmdgrp *node, t_cmdgrp *firstnode, t_data *data);
 
 /* parsing/utils_parsing.c */
 int			is_separator(char c);
-char		*removechar(char *str, char c);
 int			delchar(char **str, int pos, char c);
 char		*clean_arg(char *str);
 void		apply_all_clean(char **str, int *i);
+char		check_syn_redir(t_cmdgrp *node, int i);
 
 /* parsing/quote_parsing.c */
-int			btwn_quote(char *str, int poschar,int check_type);
+int			btwn_quote(char *str, int poschar, int check_type);
 void		checkquote(char c, int *squote, int *dquote);
 void		checkquote_arg(char c ,char next_c, int *squote, int *dquote);
 
 /* parsing/redir_parsing.c */
-void		parse_redir(t_cmdgrp *node, int i);
+int			parse_redir(t_cmdgrp *node, int i, t_cmdgrp *firstnode);
 int			is_redir_token(char c);
 void		redir_open(t_cmdgrp *node, int i, int type);
 int			heredoc(char *stopword);
 int			heredoc_close(int fd);
 
 /* parsing/pipe_parsing.c */
-void		parse_on_pipe(t_cmdgrp *node);
+int		parse_on_pipe(t_cmdgrp *node, t_cmdgrp *firstnode, t_data *data);
 int			find_pipe(char *str);
 
+/* parsing/env_replace.c*/
+char	**env_replace(char **arg, t_data *data);
+char	*replace_env_in_arg(char *arg, t_data *data);
+int	replace_nothing(char **arg, int i);
+int	replace_lexit(char **arg, int i , t_data *data);
+int	replace_var(char **arg, int i, t_data *data);
+
+/* free.c */
+void		free_nodes(t_cmdgrp *node);
+void		free_node_content(t_cmdgrp *node);
 /* parsing/exec_parsing.c */
 //void		parse_exec(t_cmdgrp *node);
 
