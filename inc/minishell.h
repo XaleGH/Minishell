@@ -6,7 +6,7 @@
 /*   By: asaux <asaux@student.42perpignan.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 18:03:50 by asaux             #+#    #+#             */
-/*   Updated: 2024/08/23 18:27:44 by asaux            ###   ########.fr       */
+/*   Updated: 2024/08/23 18:51:13 by asaux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,6 @@ void		sort_and_print_export(t_data *data);
 //builtins/exit.c
 int			exit_builtin(char **args);
 
-
 //parsing/minisplit.c
 int			mini_countword(char *s, char c);
 char		*mini_strldup(char *s, int len);
@@ -150,7 +149,7 @@ char		check_syn_redir(t_cmdgrp *node, int i);
 /* parsing/quote_parsing.c */
 int			btwn_quote(char *str, int poschar, int check_type);
 void		checkquote(char c, int *squote, int *dquote);
-void		checkquote_arg(char c ,char next_c, int *squote, int *dquote);
+void		checkquote_arg(char c, char next_c, int *squote, int *dquote);
 
 /* parsing/redir_parsing.c */
 int			parse_redir(t_cmdgrp *node, int i, t_cmdgrp *firstnode);
@@ -167,14 +166,13 @@ int			find_pipe(char *str);
 char		**env_replace(char **arg, t_data *data);
 char		*replace_env_in_arg(char *arg, t_data *data);
 int			replace_nothing(char **arg, int i);
-int			replace_lexit(char **arg, int i , t_data *data);
+int			replace_lexit(char **arg, int i, t_data *data);
 int			replace_var(char **arg, int i, t_data *data);
 
 /* free.c */
 void		free_nodes(t_cmdgrp *node);
 void		free_node_content(t_cmdgrp *node);
 void		parsing_error(t_cmdgrp *firstnode, int code, char c);
-
 
 //test.c
 void		print_node(t_cmdgrp *node);
