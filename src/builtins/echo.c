@@ -1,14 +1,26 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   echo.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: asaux <asaux@student.42perpignan.fr>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/08/24 13:52:43 by asaux             #+#    #+#             */
+/*   Updated: 2024/08/24 13:54:24 by asaux            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../inc/minishell.h"
 
 /*
  * Executes the internal "echo" command.
  *
- * This function displays the passed arguments after processing options 
- * and quotes.
- * It handles the "-n" option which suppresses the trailing newline.
+ * This function prints the provided arguments to the standard output.
+ * It handles the "-n" option, which suppresses the trailing newline character.
+ * If no arguments are provided, it simply prints a newline.
  *
- * @param args Pointer to a /////t_command///// structure containing the 
- * command's arguments.
+ * @param args Pointer to an array of strings 
+ * containing the command's arguments.
  *
  * @return void. The function does not return a value.
  */

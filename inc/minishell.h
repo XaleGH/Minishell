@@ -6,7 +6,7 @@
 /*   By: asaux <asaux@student.42perpignan.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 18:03:50 by asaux             #+#    #+#             */
-/*   Updated: 2024/08/23 18:51:13 by asaux            ###   ########.fr       */
+/*   Updated: 2024/08/24 15:49:15 by asaux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,17 @@ typedef struct s_cmdgrp
 
 /* Fonctions */
 
+//main.c
+int			check_command(char *input);
+int			nb_cmd(t_cmdgrp *node);
+void		prompt_launch(char *input, t_data *data, t_cmdgrp *firstnode);
+int			main(int ac, char **av, char **env);
+
+//signal.c
+void		handle_signals(void);
+void		sigint(int signum);
+void		sigquit(int signum);
+
 //env.c
 void		addshlvl(t_data *data);
 int			search_row(t_data *data, char *str);
@@ -93,6 +104,14 @@ char		**rm_from_array(char **array, int i);
 //pipex_ms.c
 int			pipex(int nbcmd, t_cmdgrp *node, t_data *data);
 void		init_pipe(t_cmdgrp *node, t_data *data);
+
+//free.c
+void		free_nodes(t_cmdgrp *node);
+void		free_node_content(t_cmdgrp *node);
+void		parsing_error(t_cmdgrp *firstnode, int code, char c);
+
+//test.c
+void		print_node(t_cmdgrp *node);
 
 //bultins/cd.c
 void		cd_builtin(char **args, t_data *data);
@@ -138,7 +157,7 @@ t_cmdgrp	*init_parsing(char *line, t_data *data);
 t_cmdgrp	*init_cmdgrp(char *line, int len);
 int			parse_redexec(t_cmdgrp *node, t_cmdgrp *firstnode, t_data *data);
 
-/* parsing/utils_parsing.c */
+//parsing/utils_parsing.c
 int			is_separator(char c);
 char		*removechar(char *str, char c);
 int			delchar(char **str, int pos, char c);
@@ -146,35 +165,27 @@ char		*clean_arg(char *str);
 void		apply_all_clean(char **str, int *i);
 char		check_syn_redir(t_cmdgrp *node, int i);
 
-/* parsing/quote_parsing.c */
+//parsing/quote_parsing.c
 int			btwn_quote(char *str, int poschar, int check_type);
 void		checkquote(char c, int *squote, int *dquote);
 void		checkquote_arg(char c, char next_c, int *squote, int *dquote);
 
-/* parsing/redir_parsing.c */
+//parsing/redir_parsing.c
 int			parse_redir(t_cmdgrp *node, int i, t_cmdgrp *firstnode);
 int			is_redir_token(char c);
 void		redir_open(t_cmdgrp *node, int i, int type);
 int			heredoc(char *stopword);
 int			heredoc_close(int fd);
 
-/* parsing/pipe_parsing.c */
+//parsing/pipe_parsing.c
 int			parse_on_pipe(t_cmdgrp *node, t_cmdgrp *firstnode, t_data *data);
 int			find_pipe(char *str);
 
-/* parsing/env_replace.c*/
+//parsing/env_replace.c
 char		**env_replace(char **arg, t_data *data);
 char		*replace_env_in_arg(char *arg, t_data *data);
 int			replace_nothing(char **arg, int i);
 int			replace_lexit(char **arg, int i, t_data *data);
 int			replace_var(char **arg, int i, t_data *data);
-
-/* free.c */
-void		free_nodes(t_cmdgrp *node);
-void		free_node_content(t_cmdgrp *node);
-void		parsing_error(t_cmdgrp *firstnode, int code, char c);
-
-//test.c
-void		print_node(t_cmdgrp *node);
 
 #endif

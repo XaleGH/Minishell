@@ -1,14 +1,30 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minisplit.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: asaux <asaux@student.42perpignan.fr>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/08/24 14:06:15 by asaux             #+#    #+#             */
+/*   Updated: 2024/08/24 14:12:16 by asaux            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../inc/minishell.h"
 
 /*
- * count word in the given string
+ * Counts the number of words in a string, separated by a specified delimiter.
  *
- * this split count parameter .
+ * This function iterates through the given string and counts the number of 
+ * words, where words are sequences of characters separated by the specified 
+ * delimiter `c`.
+ * It also considers whether characters are within quotes and skips delimiters 
+ * inside quotes.
  *
- * @param char*	pointer to first character of string.
- * @param char	delimiter.
+ * @param s Pointer to the string in which to count the words.
+ * @param c The character used as a delimiter to separate words.
  *
- * @return int number of parameter of the given string
+ * @return int. The function returns the number of words found in the string.
  */
 int	mini_countword(char *s, char c)
 {
@@ -31,14 +47,20 @@ int	mini_countword(char *s, char c)
 }
 
 /*
- * duplicate string
+ * Duplicates a substring from the beginning of a given string up to a 
+ * specified length.
  *
- * duplicate string for x char where x = len.
+ * This function allocates memory and copies the first `len` characters 
+ * from the input string `s` into the newly allocated memory. If the length 
+ * specified is greater than the length of the string, it copies up to the 
+ * end of the string. The resulting string is null-terminated.
  *
- * @param char*	pointer to first character of string.
- * @param int lenght of character to be duplicate.
+ * @param s Pointer to the source string to duplicate from.
+ * @param len The number of characters to copy from the source string.
  *
- * @return char* pointer on the first character of the duplicate string.
+ * @return char*. Returns a pointer to the newly allocated string containing 
+ * the duplicated substring.
+ * Returns NULL if memory allocation fails.
  */
 char	*mini_strldup(char *s, int len)
 {
@@ -59,12 +81,22 @@ char	*mini_strldup(char *s, int len)
 }
 
 /*
- * count char in the given string before delimiter
+ * Counts the number of characters in a string until a specified delimiter 
+ * is encountered.
  *
- * @param char*	pointer to first character of string.
- * @param char	delimiter.
+ * This function iterates through the given string, counting characters until 
+ * it finds the delimiter `c`, considering whether the delimiter is within 
+ * quotes. It also checks for specific redirection tokens at the beginning of 
+ * the string and adjusts the count accordingly.
  *
- * @return int number of character in the string before delimiter
+ * @param s Pointer to the string in which to count characters.
+ * @param c The character used as the delimiter to stop counting.
+ *
+ * @return int. Returns the number of characters counted until the delimiter is
+ * found or the end of the string.
+ * Returns 2 if a redirection token is found and followed by another 
+ * redirection token at the beginning, and 1 if a redirection token is found 
+ * alone at the beginning.
  */
 int	mini_countchar(char *s, char c)
 {
@@ -88,12 +120,19 @@ int	mini_countchar(char *s, char c)
 }
 
 /*
- * create an array of string where each string is a parameter
+ * Splits a string into an array of substrings based on a specified delimiter.
  *
- * @param char*	pointer to first character of string.
- * @param char	delimiter.
+ * This function divides the input string `s` into substrings separated by the 
+ * delimiter `c`. 
+ * It allocates memory for an array of string pointers and fills it with 
+ * substrings extracted from the input string. The array is null-terminated 
+ * to indicate the end of the array.
  *
- * @return char ** pointer on the array of parameter
+ * @param s Pointer to the input string to be split.
+ * @param c The delimiter character used to split the string.
+ *
+ * @return char**. Returns a pointer to an array of strings (substrings). 
+ * Returns NULL if memory allocation fails.
  */
 char	**mini_split(char *s, char c)
 {
@@ -118,13 +157,22 @@ char	**mini_split(char *s, char c)
 }
 
 /*
- * return a dup of the next word
+ * Extracts a substring from a given string based on a specified delimiter.
  *
- * @param char*	pointer to first character of string.
- * @param int*	currentposition in the string.
- * @param char	delimiter.
+ * This function extracts a word from the input string `s`, starting at the 
+ * index pointed to by `i` and continuing until the delimiter character `c` 
+ * is encountered. It skips over any delimiters and handles cases where the 
+ * delimiter might be within quotes. 
+ * The extracted substring is allocated dynamically and returned.
  *
- * @return char* return a dup of the next word.
+ * @param s Pointer to the input string from which to extract the substring.
+ * @param i Pointer to the current index in the string from which to start 
+ * extracting.
+ * @param c The delimiter character that marks the end of the substring.
+ *
+ * @return char*. Returns a pointer to the newly allocated substring. 
+ * Returns NULL if there are no characters to extract or if memory allocation 
+ * fails.
  */
 char	*get_word(char *s, int *i, char c)
 {

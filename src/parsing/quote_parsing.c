@@ -1,18 +1,36 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   quote_parsing.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: asaux <asaux@student.42perpignan.fr>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/08/24 14:20:05 by asaux             #+#    #+#             */
+/*   Updated: 2024/08/24 14:24:59 by asaux            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../inc/minishell.h"
 
 /*
- * Search if the given pos of string is between simple or double quotes.
+ * Checks if a given position in a string is within quotes.
  *
- * return 1 if the pos given is between simple or double quotes.
+ * This function determines if a specific character position in the input string
+ * is within double quotes, single quotes, or not within any quotes, based on 
+ * the `check_type` parameter. It returns different values depending on the type
+ * of quotes enclosing the position:
+ * - 0: Not within quotes
+ * - 1: Within single quotes
+ * - 2: Within double quotes
  *
- * @param char	pointer to the string.
- * @param int	position in the string.
- * @param int 	type of check.
+ * @param str Pointer to the input string to be checked.
+ * @param poschar The character position in the string to be checked.
+ * @param check_type Determines the type of quote checking 
+ * (0 for standard quotes, non-zero for argument-specific quote checking).
  *
- * @return int. return 1 if it's between simple quote
- * 2 if it's between double quote 0 if it is not.
+ * @return int. Returns 2 if the position is within double quotes, 1 if within 
+ * single quotes, and 0 if not within any quotes.
  */
-
 int	btwn_quote(char *str, int poschar, int check_type)
 {
 	int	dquote;
@@ -39,16 +57,21 @@ int	btwn_quote(char *str, int poschar, int check_type)
 }
 
 /*
- * Search if the given pos of char is between simple or double quotes.
+ * Toggles the state of single and double quotes based on the input character.
  *
- * set 1 in squote and dquote pointer if the pos given is between
- * simple or double quotes, 0 if isnt.
+ * This function updates the states of single and double quotes based on the 
+ * encountered character. It toggles the `squote` (single quote) and `dquote`
+ * (double quote) flags to reflect whether the current character is inside 
+ * quotes. It handles the transitions between quotes by switching the flags 
+ * on encountering matching quote characters.
  *
- * @param char	char to test.
- * @param int*	pointer on simple quote flag.
- * @param int*	pointer on double quote flag.
+ * @param c The character to be checked and used to update the quote states.
+ * @param squote Pointer to the integer flag indicating whether single quotes
+ * are currently open (1) or closed (0).
+ * @param dquote Pointer to the integer flag indicating whether double quotes
+ *  are currently open (1) or closed (0).
  *
- * @return void doesn't return anything.
+ * @return void. The function does not return a value.
  */
 void	checkquote(char c, int *squote, int *dquote)
 {
@@ -69,17 +92,25 @@ void	checkquote(char c, int *squote, int *dquote)
 }
 
 /*
- * Search if the given pos of char is between simple or double quotes.
+ * Updates the state of single and double quotes based on the current and 
+ * next characters.
  *
- * set 1 in squote and dquote pointer if the pos given is between
- * simple or double quotes and it can be consider as a new arg, 0 if isnt.
+ * This function modifies the states of single and double quotes based on the 
+ * current character and the next character in the string. It toggles the 
+ * `squote` (single quote) and `dquote` (double quote) flags to reflect whether
+ * the current character is inside quotes. The function also considers the next
+ * character to determine if the quote should be closed 
+ * (e.g., if it is a separator or end of string).
  *
- * @param char	char to test.
- * @param char	next char ine the string.
- * @param int*	pointer on simple quote flag.
- * @param int*	pointer on double quote flag.
+ * @param c The current character being processed.
+ * @param next_c The next character in the string to help decide if 
+ * the quote should be closed.
+ * @param squote Pointer to the integer flag indicating whether single quotes 
+ * are currently open (1) or closed (0).
+ * @param dquote Pointer to the integer flag indicating whether double quotes 
+ * are currently open (1) or closed (0).
  *
- * @return void doesn't return anything.
+ * @return void. The function does not return a value.
  */
 void	checkquote_arg(char c, char next_c, int *squote, int *dquote)
 {

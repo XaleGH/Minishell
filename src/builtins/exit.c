@@ -1,5 +1,27 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   exit.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: asaux <asaux@student.42perpignan.fr>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/08/24 13:55:32 by asaux             #+#    #+#             */
+/*   Updated: 2024/08/24 13:57:47 by asaux            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../inc/minishell.h"
 
+/*
+ * Counts the number of arguments in an array of strings.
+ *
+ * This function iterates through the provided array of arguments and counts
+ * how many non-null strings are present.
+ *
+ * @param args Pointer to an array of strings containing the arguments.
+ *
+ * @return int. Returns the number of arguments in the array.
+ */
 int	count_args(char **args)
 {
 	int	i;
@@ -10,6 +32,20 @@ int	count_args(char **args)
 	return (i);
 }
 
+/*
+ * Executes the internal "exit" command.
+ *
+ * This function handles the termination of the shell process. It checks the 
+ * arguments provided to the "exit" command to ensure they are valid. If a 
+ * numeric argument is provided, it exits with the corresponding status code.
+ * If more than one argument is provided, or if the argument is not numeric, 
+ * it prints an error message.
+ *
+ * @param args Pointer to an array of strings containing the command's arguments.
+ *
+ * @return int. Returns 1 in case of an error (too many arguments or non-numeric
+ * argument), otherwise, the function does not return as it exits the program.
+ */
 int	exit_builtin(char **args)
 {
 	int			i;

@@ -1,11 +1,29 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   env.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: asaux <asaux@student.42perpignan.fr>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/08/24 14:37:56 by asaux             #+#    #+#             */
+/*   Updated: 2024/08/24 14:42:30 by asaux            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../inc/minishell.h"
 
 /*
- * Increment the current env shlvl.
+ * Increments the value of the SHLVL environment variable.
  *
- * @param t_data Pointer data struct with an enviromenent tab initialize.
+ * This function locates the "SHLVL" variable in the environment, increments
+ * its value by 1, and updates the environment with the new value. If the
+ * "SHLVL" variable does not exist or its value is not a valid number, it sets
+ * the value to 2.
  *
- * @return void. The function does not return a value.
+ * @param data Pointer to the t_data structure containing environment variables.
+ * 
+ * @return This function does not return a value. It modifies the environment
+ * variables directly by calling edit_shlvl() with the updated SHLVL value.
  */
 void	addshlvl(t_data *data)
 {
@@ -28,17 +46,21 @@ void	addshlvl(t_data *data)
 }
 
 /*
- * search the first row where the given string appear.
+ * Searches for the index of an environment variable in the environment array.
  *
- * this function search the first appearance of given string in the environement
- * tab of the data struct.
+ * This function looks for the environment variable whose name matches the
+ * specified string (str). It returns the index of the environment variable if
+ * found; otherwise, it returns -1 if the variable is not present in the
+ * environment.
+ * The function considers a variable name to match if it starts with the
+ * specified string and is followed by either '=' or the end of the string.
  *
- * @param t_data pointer to the s_data struct initialize.
- * @param str Pointer to a string containing the string to be search 
- * in the environement.
+ * @param data Pointer to the t_data structure containing the environment
+ * variables.
+ * @param str  The name of the environment variable to search for.
  *
- * @return int. The function return the row where the given string is find.
- * return -1 if there is no given string present in environement.
+ * @return The index of the environment variable in the `data->env` array if
+ * found; otherwise, -1.
  */
 int	search_row(t_data *data, char *str)
 {
@@ -57,16 +79,18 @@ int	search_row(t_data *data, char *str)
 }
 
 /*
- * replace shlvl row with the new row.
+ * Updates the SHLVL environment variable in the environment array.
  *
- * replace the shlvl row in the current env with the new value given.
+ * This function modifies the SHLVL environment variable by updating its value
+ * to the specified level. The value is converted to a string and the
+ * environment variable is updated accordingly. The function assumes that the
+ * SHLVL variable already exists in the environment array and will replace its
+ * current value with the new one.
  *
- * @param t_data. pointer to the s_data struct initialize.
- * @param int. value of the new shlvl.
- * @param int. row of the shlvl line in the current environement.
- *
- * @return int. The function return the row where the given string is find.
- * @return void. The function does not return a value.
+ * @param data Pointer to the t_data structure containing the environment
+ * variables.
+ * @param value The new value to be set for the SHLVL variable.
+ * @param row The index of the SHLVL variable in the `data->env` array.
  */
 void	edit_shlvl(t_data *data, int value, int row)
 {
@@ -88,13 +112,16 @@ void	edit_shlvl(t_data *data, int value, int row)
 }
 
 /*
- * Duplicate the given env.
+ * Duplicates an array of environment variables.
  *
- * Duplicate the given environement to a new environement tab.
+ * This function creates a new array of environment variables by duplicating
+ * each string from the original array. The new array is allocated with the same
+ * number of elements as the original array plus one for the NULL terminator.
  *
- * @param char. pointer on environement tab to be duplicate.
- * 
- * @return char. The function return new environement tab.
+ * @param env The original array of environment variable strings.
+ * @return A new array of environment variable strings that is a duplicate of
+ * the input array. The new array is dynamically allocated and should be freed
+ * by the caller when no longer needed.
  */
 char	**dupenv(char **env)
 {

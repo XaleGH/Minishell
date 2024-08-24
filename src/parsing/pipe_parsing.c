@@ -1,5 +1,30 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   pipe_parsing.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: asaux <asaux@student.42perpignan.fr>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/08/24 14:17:58 by asaux             #+#    #+#             */
+/*   Updated: 2024/08/24 14:19:50 by asaux            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../inc/minishell.h"
 
+/*
+ * Finds the position of the first unquoted pipe character in a string.
+ *
+ * This function searches the input string for the first occurrence of the pipe
+ * character ('|') that is not enclosed within quotes. It returns the index of 
+ * this character if found, or -1 if no such character is found.
+ *
+ * @param str Pointer to the input string to be searched.
+ *
+ * @return int. Returns the index of the first unquoted pipe character in 
+ * the string. 
+ * Returns -1 if no unquoted pipe character is found.
+ */
 int	find_pipe(char *str)
 {
 	int	i;
@@ -14,6 +39,25 @@ int	find_pipe(char *str)
 	return (-1);
 }
 
+/*
+ * Parses a command group based on the presence of pipe characters.
+ *
+ * This function processes the input command group to handle commands separated
+ * by pipe characters ('|').
+ * It splits the command string at the first unquoted pipe character and 
+ * initializes two new command group nodes for each side of the pipe.
+ * It then recursively parses each command group node. If the pipe character is
+ * not found, it directly parses the command group for redirections and 
+ * executions.
+ *
+ * @param node Pointer to the current command group node to be parsed.
+ * @param firstnode Pointer to the first command group node for error 
+ * reporting purposes.
+ * @param data Pointer to a data structure containing environment variables 
+ * and other relevant information.
+ *
+ * @return int. Returns 1 if parsing is successful, 0 otherwise.
+ */
 int	parse_on_pipe(t_cmdgrp *node, t_cmdgrp *firstnode, t_data *data)
 {
 	int	i;

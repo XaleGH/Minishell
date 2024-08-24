@@ -1,15 +1,25 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cd.c                                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: asaux <asaux@student.42perpignan.fr>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/08/24 13:52:14 by asaux             #+#    #+#             */
+/*   Updated: 2024/08/24 13:52:15 by asaux            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../inc/minishell.h"
 
 /*
  * Retrieves the home directory path from the environment variables.
  *
  * This function searches the environment variables for the "HOME" 
- * entry and returns
- * the associated path. If the "HOME" variable is not set, it prints
- *  an error message
- * and returns NULL.
+ * entry and returns the associated path. If the "HOME" variable is 
+ * not set, it prints an error message and returns NULL.
  *
- * @param data Pointer to a t_data structure containing the environment 
+ * @param data Pointer to a t_data structure containing the environment
  * variables.
  *
  * @return char*. Returns a pointer to a string containing the home 
@@ -44,10 +54,8 @@ char	*get_home(t_data *data)
  * Changes the current working directory to the specified path.
  *
  * This function attempts to change the current working directory 
- * to the directory
- * specified by the path argument. If the directory does not exist 
- * or cannot be accessed,
- * it prints an error message.
+ * to the directory specified by the path argument. If the directory 
+ * does not exist or cannot be accessed, it prints an error message.
  *
  * @param path Pointer to a string containing the path to the directory.
  *
@@ -68,7 +76,7 @@ int	switch_dir(char *path)
  * Changes the current directory to the user's home directory.
  *
  * This function retrieves the home directory from the environment and 
- * changes the current directory to the home directory. It also updates
+ * changes the current directory to the home directory. It also updates 
  * the OLD_PWD environment variable with the previous directory path.
  *
  * @param data Pointer to a t_data structure containing global state,
@@ -111,10 +119,8 @@ void	actu_env(char *dir, char *var, t_data *data)
 {
 	int		i;
 	char	*pwd;
-	int		var_len;
 
 	i = 0;
-	var_len = (int)ft_strlen(var);
 	pwd = ft_strjoin(var, dir);
 	i = search_row(data, var);
 	free(data->env[i]);
