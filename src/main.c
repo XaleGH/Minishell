@@ -6,7 +6,7 @@
 /*   By: asaux <asaux@student.42perpignan.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 18:03:17 by asaux             #+#    #+#             */
-/*   Updated: 2024/08/24 15:45:54 by asaux            ###   ########.fr       */
+/*   Updated: 2024/08/24 23:12:18 by asaux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,6 +132,7 @@ int	main(int ac, char **av, char **env)
 	if (ac > 1)
 		return (printf("Error, no argument needed\n"), 1);
 	data.env = dupenv(env);
+	data.exit_status = 127;
 	addshlvl(&data);
 	handle_signals();
 	rl_catch_signals = 0;

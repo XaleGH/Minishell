@@ -6,7 +6,7 @@
 /*   By: asaux <asaux@student.42perpignan.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 18:03:50 by asaux             #+#    #+#             */
-/*   Updated: 2024/08/24 15:49:15 by asaux            ###   ########.fr       */
+/*   Updated: 2024/08/24 15:52:53 by asaux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,7 +159,6 @@ int			parse_redexec(t_cmdgrp *node, t_cmdgrp *firstnode, t_data *data);
 
 //parsing/utils_parsing.c
 int			is_separator(char c);
-char		*removechar(char *str, char c);
 int			delchar(char **str, int pos, char c);
 char		*clean_arg(char *str);
 void		apply_all_clean(char **str, int *i);
