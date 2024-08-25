@@ -6,7 +6,7 @@
 /*   By: asaux <asaux@student.42perpignan.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 18:03:50 by asaux             #+#    #+#             */
-/*   Updated: 2024/08/25 11:34:40 by asaux            ###   ########.fr       */
+/*   Updated: 2024/08/25 17:17:35 by asaux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,9 @@ typedef struct s_path
 
 typedef struct s_data
 {
-	char	**env;
-	int		exit_status;
+	char				**env;
+	int					exit_status;
+	struct s_cmdgrp 	*save_node;
 }	t_data;
 
 typedef enum s_tokentype
@@ -115,7 +116,7 @@ void		parsing_error(t_cmdgrp *firstnode, int code, char c);
 void		print_node(t_cmdgrp *node);
 
 //bultins/cd.c
-void		cd_builtin(char **args, t_data *data);
+int			cd_builtin(char **args, t_data *data);
 void		actu_env(char *dir, char *var, t_data *data);
 int			go_home(t_data *data);
 int			switch_dir(char *path);

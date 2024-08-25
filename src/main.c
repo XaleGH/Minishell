@@ -6,7 +6,7 @@
 /*   By: asaux <asaux@student.42perpignan.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 18:03:17 by asaux             #+#    #+#             */
-/*   Updated: 2024/08/25 11:17:52 by asaux            ###   ########.fr       */
+/*   Updated: 2024/08/25 17:17:18 by asaux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ void	prompt_launch(char *input, t_data *data, t_cmdgrp *firstnode)
 	firstnode = init_parsing(input, data);
 	if (firstnode)
 	{
+		data->save_node = firstnode;
 		if (nb_cmd(firstnode) > 1)
 			pipex(nb_cmd(firstnode), firstnode, data);
 		else
@@ -133,6 +134,7 @@ int	main(int ac, char **av, char **env)
 		return (printf("Error, no argument needed\n"), 1);
 	data.env = dupenv(env);
 	data.exit_status = 127;
+	data.save_node = NULL;
 	addshlvl(&data);
 	handle_signals();
 	rl_catch_signals = 0;

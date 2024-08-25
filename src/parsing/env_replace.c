@@ -6,7 +6,7 @@
 /*   By: asaux <asaux@student.42perpignan.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 14:00:17 by asaux             #+#    #+#             */
-/*   Updated: 2024/08/25 15:51:35 by asaux            ###   ########.fr       */
+/*   Updated: 2024/08/25 16:53:44 by asaux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,10 +115,15 @@ int	replace_nothing(char **arg, int i)
  */
 int	replace_lexit(char **arg, int i, t_data *data)
 {
+	char	*exit;
+	int		l;
+
+	exit = ft_itoa(data->exit_status);
+	l = ft_strlen(exit);
 	(*arg)[i] = '\0';
-	*arg = ft_strjoin(ft_strjoin(*arg, ft_itoa(data->exit_status)),
-			&(*arg)[i + 2]);
-	return (ft_strlen(ft_itoa(data->exit_status)));
+	*arg = ft_strjoin(ft_strjoin(*arg, exit), &(*arg)[i + 2]);
+	free(exit);
+	return (l);
 }
 
 /*

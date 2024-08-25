@@ -6,7 +6,7 @@
 /*   By: asaux <asaux@student.42perpignan.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 13:55:32 by asaux             #+#    #+#             */
-/*   Updated: 2024/08/25 15:15:07 by asaux            ###   ########.fr       */
+/*   Updated: 2024/08/25 17:26:58 by asaux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,5 +73,8 @@ int	exit_builtin(char **args, t_data *data)
 		num %= 256;
 	}
 	printf("exit\n");
-	return ((data->exit_status = num), exit(num), 1);
+	i = search_row(data, "SHLVL=");
+	if (data->env[i][6] == '2' && data->env[i][7] == '\0')
+		free_array(data->env);
+	return ((data->exit_status = num), free_nodes(data->save_node), exit(num), 1);
 }

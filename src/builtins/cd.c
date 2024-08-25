@@ -6,7 +6,7 @@
 /*   By: asaux <asaux@student.42perpignan.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 13:52:14 by asaux             #+#    #+#             */
-/*   Updated: 2024/08/25 10:38:39 by asaux            ###   ########.fr       */
+/*   Updated: 2024/08/25 16:08:50 by asaux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,7 +144,7 @@ void	actu_env(char *dir, char *var, t_data *data)
  *
  * @return void. The function does not return a value.
  */
-void	cd_builtin(char **args, t_data *data)
+int	cd_builtin(char **args, t_data *data)
 {
 	char	*old_dir;
 	char	*cur_dir;
@@ -152,18 +152,17 @@ void	cd_builtin(char **args, t_data *data)
 	old_dir = NULL;
 	cur_dir = NULL;
 	old_dir = getcwd(old_dir, 0);
+	if (args[2])
+		return(printf("bash : cd : too many arguments\n"), 1);
 	if (!args[1])
 	{
 		if (go_home(data) == 1)
-			return ;
+			return (1);
 	}
 	else
 	{
 		if (switch_dir(args[1]) == 1)
-		{
-			free(old_dir);
-			return ;
-		}
+			return (free(old_dir), 1);
 	}
 	cur_dir = getcwd(cur_dir, 0);
 	actu_env(old_dir, "OLDPWD=", data);
@@ -171,4 +170,5 @@ void	cd_builtin(char **args, t_data *data)
 	free(old_dir);
 	free(cur_dir);
 	data->exit_status = 0;
+	return (0);
 }

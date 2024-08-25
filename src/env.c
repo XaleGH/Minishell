@@ -6,7 +6,7 @@
 /*   By: asaux <asaux@student.42perpignan.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 14:37:56 by asaux             #+#    #+#             */
-/*   Updated: 2024/08/24 14:42:30 by asaux            ###   ########.fr       */
+/*   Updated: 2024/08/25 16:57:21 by asaux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,8 @@ void	edit_shlvl(t_data *data, int value, int row)
 	str = ft_strjoin(str, str_num);
 	free(data->env[row]);
 	data->env[row] = NULL;
-	data->env[row] = str;
+	data->env[row] = ft_strdup(str);
+	free(str);
 	free(str_num);
 }
 
