@@ -6,7 +6,7 @@
 /*   By: asaux <asaux@student.42perpignan.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 14:52:01 by asaux             #+#    #+#             */
-/*   Updated: 2024/08/24 14:59:44 by asaux            ###   ########.fr       */
+/*   Updated: 2024/08/25 11:21:34 by asaux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,15 +181,15 @@ void	exec_builtin(char **str, t_data *data)
 	if (ft_strncmp_exact(str[0], "cd", 2) == 0)
 		cd_builtin(str, data);
 	else if (ft_strncmp_exact(str[0], "echo", 4) == 0)
-		echo_builtin(str);
+		echo_builtin(str, data);
 	else if (ft_strncmp_exact(str[0], "env", 3) == 0)
 		env_builtin(data);
 	else if (ft_strncmp_exact(str[0], "export", 6) == 0)
 		export_builtin(str, data);
 	else if (ft_strncmp_exact(str[0], "pwd", 3) == 0)
-		pwd_builtin();
+		pwd_builtin(data);
 	else if (ft_strncmp_exact(str[0], "unset", 5) == 0)
 		unset_builtin(str, data);
 	else if (ft_strncmp_exact(str[0], "exit", 4) == 0)
-		exit_builtin(str);
+		exit_builtin(str, data);
 }

@@ -6,7 +6,7 @@
 /*   By: asaux <asaux@student.42perpignan.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 14:33:06 by asaux             #+#    #+#             */
-/*   Updated: 2024/08/24 14:37:27 by asaux            ###   ########.fr       */
+/*   Updated: 2024/08/25 11:37:26 by asaux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,12 +160,7 @@ char	check_syn_redir(t_cmdgrp *node, int i)
 			return (node->arg[i][1]);
 		else if ((node->arg[i][0] == '>' || node->arg[i][0] == '<')
 			&& !node->arg[i + 1])
-		{
-			if ((node->arg[i][0] == '>' && !node->arg[i][1]))
-				return (0);
-			else
-				return (node->arg[i][0]);
-		}
+			return (node->arg[i][0]);
 		else if (node->arg[i + 1] && is_separator(node->arg[i + 1][0]))
 			return (node->arg[i + 1][0]);
 		else

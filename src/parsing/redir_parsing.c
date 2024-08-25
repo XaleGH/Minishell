@@ -6,7 +6,7 @@
 /*   By: asaux <asaux@student.42perpignan.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 14:25:19 by asaux             #+#    #+#             */
-/*   Updated: 2024/08/24 14:32:48 by asaux            ###   ########.fr       */
+/*   Updated: 2024/08/25 10:18:44 by asaux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,8 +105,6 @@ void	redir_open(t_cmdgrp *node, int i, int type)
 		close(node->fd);
 	if (node->arg[i + 1])
 		node->fd = open(file, type, 0777);
-	else
-		node->fd = -200;
 }
 
 /*

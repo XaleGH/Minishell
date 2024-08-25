@@ -6,7 +6,7 @@
 /*   By: asaux <asaux@student.42perpignan.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 13:52:14 by asaux             #+#    #+#             */
-/*   Updated: 2024/08/24 13:52:15 by asaux            ###   ########.fr       */
+/*   Updated: 2024/08/25 10:38:39 by asaux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,4 +170,5 @@ void	cd_builtin(char **args, t_data *data)
 	actu_env(cur_dir, "PWD=", data);
 	free(old_dir);
 	free(cur_dir);
+	data->exit_status = 0;
 }

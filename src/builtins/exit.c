@@ -6,7 +6,7 @@
 /*   By: asaux <asaux@student.42perpignan.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 13:55:32 by asaux             #+#    #+#             */
-/*   Updated: 2024/08/24 13:57:47 by asaux            ###   ########.fr       */
+/*   Updated: 2024/08/25 15:15:07 by asaux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,13 @@ int	count_args(char **args)
  * it prints an error message.
  *
  * @param args Pointer to an array of strings containing the command's arguments.
- *
+ * @param data Pointer to a t_data structure containing the environment
+ * variables.
+ * 
  * @return int. Returns 1 in case of an error (too many arguments or non-numeric
  * argument), otherwise, the function does not return as it exits the program.
  */
-int	exit_builtin(char **args)
+int	exit_builtin(char **args, t_data *data)
 {
 	int			i;
 	long int	num;
@@ -59,17 +61,17 @@ int	exit_builtin(char **args)
 	{
 		while (args[1][i])
 		{
+			if (args[1][i] == '-')
+				i++;
 			if (!ft_isdigit(args[1][i]))
-			{
-				printf("bash : %s : %s : numeric argument required\n",
-					args[0], args[1]);
-				return (1);
-			}
+				return (printf("bash : %s : %s : numeric argument required\n",
+						args[0], args[1]), 1);
 			else
 				i++;
 		}
 		num = ft_atoi(args[1]);
 		num %= 256;
 	}
-	exit(num);
+	printf("exit\n");
+	return ((data->exit_status = num), exit(num), 1);
 }

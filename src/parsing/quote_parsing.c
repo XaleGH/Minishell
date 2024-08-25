@@ -6,7 +6,7 @@
 /*   By: asaux <asaux@student.42perpignan.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 14:20:05 by asaux             #+#    #+#             */
-/*   Updated: 2024/08/24 14:24:59 by asaux            ###   ########.fr       */
+/*   Updated: 2024/08/25 15:39:27 by asaux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	btwn_quote(char *str, int poschar, int check_type)
 	squote = 0;
 	while (str[++i])
 	{
-		if (check_type == 0)
+		if (check_type == 0 || check_type == 1)
 			checkquote(str[i], &squote, &dquote);
 		else
 			checkquote_arg(str[i], str[i + 1], &squote, &dquote);

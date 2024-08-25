@@ -6,7 +6,7 @@
 /*   By: asaux <asaux@student.42perpignan.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 15:14:01 by asaux             #+#    #+#             */
-/*   Updated: 2024/08/24 15:16:51 by asaux            ###   ########.fr       */
+/*   Updated: 2024/08/25 11:39:24 by asaux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,4 +126,32 @@ char	**rm_from_array(char **array, int i)
 	}
 	free_array(array);
 	return (newarray);
+}
+
+/*
+ * Skips leading whitespace characters in a string.
+ *
+ * This function identifies and skips over any leading whitespace characters
+ * in the provided string. Whitespace characters include spaces (' ') and 
+ * other common whitespace characters like tabs, newlines, and carriage returns.
+ *
+ * - The function iterates through the string until it encounters a character
+ * that is not a whitespace character.
+ * - Whitespace characters are considered as ' ' (space), '\t' (horizontal tab),
+ * '\n' (newline), '\v' (vertical tab), '\f' (form feed), and '\r'
+ * (carriage return).
+ *
+ * @param str Pointer to the string from which leading whitespace will be
+ * skipped.
+ *
+ * @return The index of the first non-whitespace character in the string.
+ */
+int	ignore_w_space(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i] == ' ' || (str[i] >= 9 && str[i] <= 13))
+		i++;
+	return (i);
 }

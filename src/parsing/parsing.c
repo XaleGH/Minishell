@@ -6,7 +6,7 @@
 /*   By: asaux <asaux@student.42perpignan.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 14:12:33 by asaux             #+#    #+#             */
-/*   Updated: 2024/08/24 14:17:24 by asaux            ###   ########.fr       */
+/*   Updated: 2024/08/25 15:52:32 by asaux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ t_cmdgrp	*init_cmdgrp(char *line, int len)
 	new_node->part2 = NULL;
 	new_node->arg = NULL;
 	new_node->str = mini_strldup(line, len);
+	new_node->fd = 0;
 	return (new_node);
 }
 
@@ -115,6 +116,6 @@ t_cmdgrp	*init_parsing(char *line, t_data *data)
 	node = init_cmdgrp(line, ft_strlen(line));
 	firstnode = node;
 	if (!parse_on_pipe(node, firstnode, data))
-		return (NULL);
+		return ((data->exit_status = 2), NULL);
 	return (firstnode);
 }

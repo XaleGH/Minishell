@@ -6,7 +6,7 @@
 /*   By: asaux <asaux@student.42perpignan.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 14:00:17 by asaux             #+#    #+#             */
-/*   Updated: 2024/08/24 14:06:01 by asaux            ###   ########.fr       */
+/*   Updated: 2024/08/25 15:51:35 by asaux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,8 +148,9 @@ int	replace_var(char **arg, int i, t_data *data)
 	(*arg)[i] = '\0';
 	k = 0;
 	j = i + 1;
-	while ((*arg)[j] && (*arg)[j] != '$' && (*arg)[j++] != ' ')
-		;
+	while ((*arg)[j] && (*arg)[j] != '$' && (*arg)[j] != '\'' &&
+		(*arg)[j] != '\"' && (*arg)[j] != ' ')
+		j++;
 	temp = malloc(sizeof(char) * ((j - i)));
 	while (++i <= j)
 		temp[k++] = (*arg)[i];

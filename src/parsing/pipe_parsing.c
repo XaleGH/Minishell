@@ -6,7 +6,7 @@
 /*   By: asaux <asaux@student.42perpignan.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 14:17:58 by asaux             #+#    #+#             */
-/*   Updated: 2024/08/24 14:19:50 by asaux            ###   ########.fr       */
+/*   Updated: 2024/08/25 11:36:12 by asaux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,8 @@ int	parse_on_pipe(t_cmdgrp *node, t_cmdgrp *firstnode, t_data *data)
 	i = find_pipe(node->str);
 	if (i != -1)
 	{
+		if (ignore_w_space(node->str) == i)
+			return (parsing_error(firstnode, 0, node->str[i]), 0);
 		if (!node->str[i + 1])
 			return (parsing_error(firstnode, 0, node->str[i]), 0);
 		node->type = PIPE;

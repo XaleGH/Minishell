@@ -6,7 +6,7 @@
 /*   By: asaux <asaux@student.42perpignan.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 18:03:50 by asaux             #+#    #+#             */
-/*   Updated: 2024/08/24 15:52:53 by asaux            ###   ########.fr       */
+/*   Updated: 2024/08/25 11:34:40 by asaux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ int			ft_isalldigit(char *str);
 void		free_array(char **env);
 int			ft_strlen_array(char **array);
 char		**rm_from_array(char **array, int i);
+int			ignore_w_space(char *str);
 
 //pipex_ms.c
 int			pipex(int nbcmd, t_cmdgrp *node, t_data *data);
@@ -121,13 +122,14 @@ int			switch_dir(char *path);
 char		*get_home(t_data *data);
 
 //builtins/echo.c
-void		echo_builtin(char **args);
+void		echo_builtin(char **args, t_data *data);
+int			echo_option(char *str);
 
 //builtins/env.c
 void		env_builtin(t_data *data);
 
 //builtins/pwd.c
-void		pwd_builtin(void);
+void		pwd_builtin(t_data *data);
 
 //builtins/unset.c
 void		unset_builtin(char **args, t_data *data);
@@ -143,7 +145,7 @@ char		**sort_env(char **env);
 void		sort_and_print_export(t_data *data);
 
 //builtins/exit.c
-int			exit_builtin(char **args);
+int			exit_builtin(char **args, t_data *data);
 
 //parsing/minisplit.c
 int			mini_countword(char *s, char c);

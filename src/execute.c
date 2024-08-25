@@ -6,7 +6,7 @@
 /*   By: asaux <asaux@student.42perpignan.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 14:44:08 by asaux             #+#    #+#             */
-/*   Updated: 2024/08/24 16:00:37 by asaux            ###   ########.fr       */
+/*   Updated: 2024/08/25 11:18:36 by asaux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,9 +162,7 @@ void	redir_in(t_cmdgrp *node, t_data *data)
  */
 void	execute_ms(t_cmdgrp *node, t_data *data)
 {
-	if (node->fd == -200)
-		printf("syntax error near unexpected token `newline`");
-	else if (node->type == EXEC)
+	if (node->type == EXEC)
 	{
 		if (!node->arg[0])
 			return ;
