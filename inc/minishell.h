@@ -6,7 +6,7 @@
 /*   By: asaux <asaux@student.42perpignan.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 18:03:50 by asaux             #+#    #+#             */
-/*   Updated: 2024/08/25 17:17:35 by asaux            ###   ########.fr       */
+/*   Updated: 2024/08/25 20:03:06 by asaux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ typedef struct s_data
 {
 	char				**env;
 	int					exit_status;
-	struct s_cmdgrp 	*save_node;
+	struct s_cmdgrp		*save_node;
 }	t_data;
 
 typedef enum s_tokentype
@@ -147,6 +147,8 @@ void		sort_and_print_export(t_data *data);
 
 //builtins/exit.c
 int			exit_builtin(char **args, t_data *data);
+int			exit_utils(char **args, long int *num);
+int			count_args(char **args);
 
 //parsing/minisplit.c
 int			mini_countword(char *s, char c);

@@ -6,7 +6,7 @@
 /*   By: asaux <asaux@student.42perpignan.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 13:52:14 by asaux             #+#    #+#             */
-/*   Updated: 2024/08/25 16:08:50 by asaux            ###   ########.fr       */
+/*   Updated: 2024/08/25 20:03:38 by asaux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,7 +153,7 @@ int	cd_builtin(char **args, t_data *data)
 	cur_dir = NULL;
 	old_dir = getcwd(old_dir, 0);
 	if (args[2])
-		return(printf("bash : cd : too many arguments\n"), 1);
+		return (printf("bash : cd : too many arguments\n"), 1);
 	if (!args[1])
 	{
 		if (go_home(data) == 1)
