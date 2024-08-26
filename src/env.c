@@ -6,7 +6,7 @@
 /*   By: asaux <asaux@student.42perpignan.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 14:37:56 by asaux             #+#    #+#             */
-/*   Updated: 2024/08/26 14:12:21 by asaux            ###   ########.fr       */
+/*   Updated: 2024/08/26 15:57:52 by asaux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,6 +156,25 @@ char	**dupenv(char **env)
 	return (dup_env);
 }
 
+/*
+ * Determines the position where an environment variable name ends in a string.
+ *
+ * This function iterates through the string `arg`, starting from index `j`, to
+ * find the position where the current environment variable name terminates.
+ * The end of the variable name is identified by the presence of a special
+ * character that indicates the boundary of the variable name or the beginning
+ * of another token.
+ *
+ * The iteration stops at any of the following characters:
+ * - `$` (indicating the start of another environment variable)
+ * - `'` or `"` (indicating the beginning of a quoted string)
+ * - A space character (indicating the end of the token)
+ *
+ * @param j The starting index for the search in the string `arg`.
+ * @param arg The string containing the environment variable name.
+ *
+ * @return int The index marking the end of the environment variable name.
+ */
 int	check_env_end(int j, char *arg)
 {
 	while (arg[j] && arg[j] != '$' && arg[j] != '\''

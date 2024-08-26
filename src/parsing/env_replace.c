@@ -6,7 +6,7 @@
 /*   By: asaux <asaux@student.42perpignan.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 14:00:17 by asaux             #+#    #+#             */
-/*   Updated: 2024/08/26 14:33:09 by asaux            ###   ########.fr       */
+/*   Updated: 2024/08/26 15:54:23 by asaux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,8 +166,9 @@ int	replace_var(char **arg, int i, t_data *data)
 	k = 0;
 	j = check_env_end(i + 1, *arg);
 	temp = malloc(sizeof(char) * ((j - i)));
-	while (++i <= j)
+	while (++i < j)
 		temp[k++] = (*arg)[i];
+	temp[k] = '\0';
 	if (search_row(data, temp) == -1)
 		return (free(temp), temp = ft_strjoin(*arg, &(*arg)[j]),
 			(*arg = temp), 0);
@@ -177,9 +178,7 @@ int	replace_var(char **arg, int i, t_data *data)
 	while (temp2[k] != '=')
 		k++;
 	temp = ft_strdup(&temp2[k + 1]);
-	free(temp2);
-	temp2 = ft_strjoin(*arg, temp);
-	free(temp);
-	temp = ft_strjoin(temp2, &(*arg)[j]);
-	return (free(*arg), (*arg = temp2), free(temp), j - i);
+	return (free(temp2), (temp2 = ft_strjoin(*arg, temp)), free(temp),
+		(temp = ft_strjoin(temp2, &(*arg)[j])), free(temp2), free(*arg),
+		*arg = temp, j - i);
 }
