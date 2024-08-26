@@ -6,7 +6,7 @@
 /*   By: asaux <asaux@student.42perpignan.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 14:37:56 by asaux             #+#    #+#             */
-/*   Updated: 2024/08/25 16:57:21 by asaux            ###   ########.fr       */
+/*   Updated: 2024/08/26 14:12:21 by asaux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,37 +79,50 @@ int	search_row(t_data *data, char *str)
 }
 
 /*
- * Updates the SHLVL environment variable in the environment array.
+ * Updates the "SHLVL" environment variable to the specified value.
  *
- * This function modifies the SHLVL environment variable by updating its value
- * to the specified level. The value is converted to a string and the
- * environment variable is updated accordingly. The function assumes that the
- * SHLVL variable already exists in the environment array and will replace its
- * current value with the new one.
+ * This function modifies the "SHLVL" (Shell Level) environment variable to
+ * reflect the current shell level. It performs the following actions:
+ * - Converts the integer `value` into a string using `ft_itoa`.
+ * - Allocates memory for a new string that will hold the updated "SHLVL" value,
+ * which is a combination of the prefix "SHLVL=" and the string representation
+ * of `value`.
+ * - Copies the prefix "SHLVL=" into the newly allocated string and concatenates
+ * the string representation of `value` to form the complete "SHLVL" entry.
+ * - Frees the previous "SHLVL" value in `data->env[row]` and replaces it with
+ * the newly constructed string.
+ * - Frees any temporary memory used during the process.
  *
- * @param data Pointer to the t_data structure containing the environment
+ * @param data Pointer to a t_data structure containing the environment
  * variables.
- * @param value The new value to be set for the SHLVL variable.
- * @param row The index of the SHLVL variable in the `data->env` array.
+ * @param value The new shell level value to set for "SHLVL".
+ * @param row The index in the environment variable array where "SHLVL"
+ * is stored.
+ *
+ * @return void. The function does not return a value.
  */
 void	edit_shlvl(t_data *data, int value, int row)
 {
 	int		len_num;
 	char	*str_num;
 	char	*str;
+	char	*prefix;
 
+	prefix = "SHLVL=";
 	str_num = ft_itoa(value);
 	len_num = ft_strlen(str_num);
-	str = malloc(sizeof(char) * (6 + 1 + len_num));
-	str = "SHLVL=";
+	str = malloc(sizeof(char) * (ft_strlen(prefix) + len_num + 1));
 	if (!str)
+	{
+		free(str_num);
 		return ;
-	str = ft_strjoin(str, str_num);
+	}
+	ft_strlcpy(str, prefix, ft_strlen(prefix) + 1);
+	ft_strlcat(str, str_num, ft_strlen(prefix) + len_num + 1);
+	free(str_num);
 	free(data->env[row]);
-	data->env[row] = NULL;
 	data->env[row] = ft_strdup(str);
 	free(str);
-	free(str_num);
 }
 
 /*
@@ -141,4 +154,12 @@ char	**dupenv(char **env)
 	}
 	dup_env[i] = NULL;
 	return (dup_env);
+}
+
+int	check_env_end(int j, char *arg)
+{
+	while (arg[j] && arg[j] != '$' && arg[j] != '\''
+		&& arg[j] != '\"' && arg[j] != ' ')
+		j++;
+	return (j);
 }

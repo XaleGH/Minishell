@@ -6,7 +6,7 @@
 /*   By: asaux <asaux@student.42perpignan.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 14:00:17 by asaux             #+#    #+#             */
-/*   Updated: 2024/08/25 16:53:44 by asaux            ###   ########.fr       */
+/*   Updated: 2024/08/26 14:33:09 by asaux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,8 +92,14 @@ char	*replace_env_in_arg(char *arg, t_data *data)
  */
 int	replace_nothing(char **arg, int i)
 {
+	char	*tmp;
+
 	(*arg)[i] = '\0';
-	*arg = ft_strjoin(*arg, &(*arg)[i + 2]);
+	tmp = ft_strjoin(*arg, &(*arg)[i + 2]);
+	if (!tmp)
+		return (-1);
+	free(*arg);
+	*arg = tmp;
 	return (0);
 }
 
@@ -117,11 +123,17 @@ int	replace_lexit(char **arg, int i, t_data *data)
 {
 	char	*exit;
 	int		l;
+	char	*newstring1;
+	char	*newstring2;
 
 	exit = ft_itoa(data->exit_status);
 	l = ft_strlen(exit);
 	(*arg)[i] = '\0';
-	*arg = ft_strjoin(ft_strjoin(*arg, exit), &(*arg)[i + 2]);
+	newstring1 = ft_strjoin(*arg, exit);
+	newstring2 = ft_strjoin(newstring1, &(*arg)[i + 2]);
+	free(newstring1);
+	free(*arg);
+	*arg = newstring2;
 	free(exit);
 	return (l);
 }
@@ -146,27 +158,28 @@ int	replace_lexit(char **arg, int i, t_data *data)
 int	replace_var(char **arg, int i, t_data *data)
 {
 	char	*temp;
-	char	*envvar;
+	char	*temp2;
 	int		j;
 	int		k;
 
 	(*arg)[i] = '\0';
 	k = 0;
-	j = i + 1;
-	while ((*arg)[j] && (*arg)[j] != '$' && (*arg)[j] != '\'' &&
-		(*arg)[j] != '\"' && (*arg)[j] != ' ')
-		j++;
+	j = check_env_end(i + 1, *arg);
 	temp = malloc(sizeof(char) * ((j - i)));
 	while (++i <= j)
 		temp[k++] = (*arg)[i];
 	if (search_row(data, temp) == -1)
-		return ((*arg = ft_strjoin(*arg, &(*arg)[j])), free(temp), 0);
-	envvar = data->env[search_row(data, temp)];
+		return (free(temp), temp = ft_strjoin(*arg, &(*arg)[j]),
+			(*arg = temp), 0);
+	temp2 = ft_strdup(data->env[search_row(data, temp)]);
 	free(temp);
 	k = 0;
-	while (envvar[k] != '=')
+	while (temp2[k] != '=')
 		k++;
-	temp = ft_strdup(&envvar[k + 1]);
-	*arg = ft_strjoin(ft_strjoin(*arg, temp), &(*arg)[j]);
-	return (free(temp), j - i);
+	temp = ft_strdup(&temp2[k + 1]);
+	free(temp2);
+	temp2 = ft_strjoin(*arg, temp);
+	free(temp);
+	temp = ft_strjoin(temp2, &(*arg)[j]);
+	return (free(*arg), (*arg = temp2), free(temp), j - i);
 }

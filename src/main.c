@@ -6,7 +6,7 @@
 /*   By: asaux <asaux@student.42perpignan.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 18:03:17 by asaux             #+#    #+#             */
-/*   Updated: 2024/08/25 17:17:18 by asaux            ###   ########.fr       */
+/*   Updated: 2024/08/26 10:49:58 by asaux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,7 +142,7 @@ int	main(int ac, char **av, char **env)
 	{
 		input = readline("▶️  minishell > ");
 		if (input == NULL)
-			return (printf("exit\n"), free(input), 0);
+			return (printf("exit\n"), free_array(data.env), 0);
 		else
 			prompt_launch(input, &data, &firstnode);
 		free(input);

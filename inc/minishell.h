@@ -6,7 +6,7 @@
 /*   By: asaux <asaux@student.42perpignan.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 18:03:50 by asaux             #+#    #+#             */
-/*   Updated: 2024/08/25 20:03:06 by asaux            ###   ########.fr       */
+/*   Updated: 2024/08/26 14:14:08 by asaux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ void		addshlvl(t_data *data);
 int			search_row(t_data *data, char *str);
 void		edit_shlvl(t_data *data, int value, int row);
 char		**dupenv(char **env);
+int			check_env_end(int j, char *arg);
 
 //execute.c
 void		execute_ms(t_cmdgrp *node, t_data *data);
@@ -144,6 +145,8 @@ int			check_arg(char *arg);
 //builtins/export_sort_env.c
 char		**sort_env(char **env);
 void		sort_and_print_export(t_data *data);
+void		export_exist_var(char **args, t_data *data, char **temp, int i);
+void		export_new_var(char **args, t_data *data, int i, int j);
 
 //builtins/exit.c
 int			exit_builtin(char **args, t_data *data);

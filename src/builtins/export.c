@@ -6,7 +6,7 @@
 /*   By: asaux <asaux@student.42perpignan.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 13:58:34 by asaux             #+#    #+#             */
-/*   Updated: 2024/08/25 11:22:35 by asaux            ###   ########.fr       */
+/*   Updated: 2024/08/26 11:48:23 by asaux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,8 +127,10 @@ void	export_builtin(char **args, t_data *data)
 	int		i;
 	int		j;
 	char	*new_arg;
+	char	**temp;
 
 	i = 0;
+	temp = NULL;
 	if (!args[1])
 		return (sort_and_print_export(data));
 	while (args[++i])
@@ -138,14 +140,11 @@ void	export_builtin(char **args, t_data *data)
 			new_arg = recover_arg(args[i]);
 			j = search_row(data, new_arg);
 			if (j == -1 || data->env[j][ft_strlen(new_arg)] != '=')
-				data->env = add_var_env(data->env, args[i]);
+				export_exist_var(args, data, temp, i);
 			else
-			{
-				free(data->env[j]);
-				data->env[j] = NULL;
-				data->env[j] = ft_strdup(args[i]);
-			}
+				export_new_var(args, data, i, j);
 		}
 	}
+	free(new_arg);
 	data->exit_status = 0;
 }

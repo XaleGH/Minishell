@@ -6,7 +6,7 @@
 /*   By: asaux <asaux@student.42perpignan.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 13:55:32 by asaux             #+#    #+#             */
-/*   Updated: 2024/08/25 20:05:03 by asaux            ###   ########.fr       */
+/*   Updated: 2024/08/26 14:30:23 by asaux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,6 @@ int	exit_utils(char **args, long int *num)
 	}
 	*num = ft_atoi(args[1]);
 	*num %= 256;
-	printf("exit\n");
 	return (0);
 }
 
@@ -104,14 +103,17 @@ int	exit_builtin(char **args, t_data *data)
 {
 	int			i;
 	long int	num;
+	char		*shlvl;
 
 	i = 0;
 	num = 0;
+	shlvl = "SHLVL=";
+	printf("exit\n");
 	if (count_args(args) > 2)
 		return (printf("bash : %s : too many arguments\n", args[0]), 1);
 	if (count_args(args) == 2)
 		exit_utils(args, &num);
-	i = search_row(data, "SHLVL=");
+	i = search_row(data, shlvl);
 	if (data->env[i][6] == '2' && data->env[i][7] == '\0')
 		free_array(data->env);
 	return ((data->exit_status = num), free_nodes(data->save_node),
