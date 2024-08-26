@@ -6,7 +6,7 @@
 /*   By: asaux <asaux@student.42perpignan.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 13:58:15 by asaux             #+#    #+#             */
-/*   Updated: 2024/08/26 14:06:48 by asaux            ###   ########.fr       */
+/*   Updated: 2024/08/26 19:55:12 by asaux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,31 @@ char	**sort_env(char **env)
 	return (env);
 }
 
+void	export_dquote(char **env_cpy, int i)
+{
+	int		j;
+	char	*temp;
+	char	*temp2;
+	char	*temp3;
+
+	j = 0;
+	while (env_cpy[i][j] && env_cpy[i][j] != '=')
+		j++;
+	if (env_cpy[i][j] != '=')
+		return ;
+	temp2 = ft_strdup(&env_cpy[i][j + 1]);
+	temp = ft_strjoin(temp2, "\"");
+	free(temp2);
+	env_cpy[i][j + 1] = '\0';
+	temp2 = ft_strjoin(env_cpy[i], "\"");
+	free(env_cpy[i]);
+	env_cpy[i] = temp2;
+	temp3 = ft_strjoin(env_cpy[i], temp);
+	free(env_cpy[i]);
+	free(temp);
+	env_cpy[i] = temp3;
+}
+
 /*
  * Sorts and prints the environment variables in export format.
  *
@@ -71,6 +96,12 @@ void	sort_and_print_export(t_data *data)
 	i = 0;
 	env_cpy = dupenv(data->env);
 	env_cpy = sort_env(env_cpy);
+	while (env_cpy[i])
+	{
+		export_dquote(env_cpy, i);
+		i++;
+	}
+	i = 0;
 	while (env_cpy[i])
 	{
 		printf("declare -x %s\n", env_cpy[i]);

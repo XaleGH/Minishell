@@ -6,7 +6,7 @@
 /*   By: asaux <asaux@student.42perpignan.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 13:52:43 by asaux             #+#    #+#             */
-/*   Updated: 2024/08/25 11:20:05 by asaux            ###   ########.fr       */
+/*   Updated: 2024/08/26 17:37:08 by asaux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	echo_option(char *str)
 		return (1);
 	while (str[i] == 'n')
 		i++;
-	if (str[i] == '\0')
+	if (str[i] == '\0' && str[i - 1] == 'n')
 		return (0);
 	return (1);
 }

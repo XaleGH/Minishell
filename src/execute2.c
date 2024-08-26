@@ -6,7 +6,7 @@
 /*   By: asaux <asaux@student.42perpignan.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 14:52:01 by asaux             #+#    #+#             */
-/*   Updated: 2024/08/25 17:10:53 by asaux            ###   ########.fr       */
+/*   Updated: 2024/08/26 19:53:13 by asaux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,11 +61,16 @@ char	*extract_path(char **env)
  */
 char	*get_path(char **cmd, char **env, t_path *path)
 {
-	int	i;
+	int		i;
+	char	*wait_path;
 
+	wait_path = NULL;
 	i = -1;
 	path->cmds = cmd;
-	path->allpaths = ft_split(extract_path(env), ':');
+	wait_path = extract_path(env);
+	if (!wait_path)
+		return (NULL);
+	path->allpaths = ft_split(wait_path, ':');
 	while (path->allpaths[++i])
 	{
 		path->subpath = ft_strjoin(path->allpaths[i], "/");

@@ -6,7 +6,7 @@
 /*   By: asaux <asaux@student.42perpignan.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 14:00:17 by asaux             #+#    #+#             */
-/*   Updated: 2024/08/26 15:54:23 by asaux            ###   ########.fr       */
+/*   Updated: 2024/08/26 16:13:25 by asaux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,7 +171,7 @@ int	replace_var(char **arg, int i, t_data *data)
 	temp[k] = '\0';
 	if (search_row(data, temp) == -1)
 		return (free(temp), temp = ft_strjoin(*arg, &(*arg)[j]),
-			(*arg = temp), 0);
+			free (*arg), (*arg = temp), 0);
 	temp2 = ft_strdup(data->env[search_row(data, temp)]);
 	free(temp);
 	k = 0;

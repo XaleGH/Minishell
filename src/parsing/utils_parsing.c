@@ -6,7 +6,7 @@
 /*   By: asaux <asaux@student.42perpignan.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 14:33:06 by asaux             #+#    #+#             */
-/*   Updated: 2024/08/25 11:37:26 by asaux            ###   ########.fr       */
+/*   Updated: 2024/08/26 16:02:49 by asaux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ char	*clean_arg(char *str)
 	int		j;
 	char	*dupstr;
 
-	dupstr = strdup(str);
+	dupstr = ft_strdup(str);
 	i = 0;
 	j = 0;
 	while (dupstr[j])

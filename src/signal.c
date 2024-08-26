@@ -6,7 +6,7 @@
 /*   By: asaux <asaux@student.42perpignan.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 15:40:05 by asaux             #+#    #+#             */
-/*   Updated: 2024/08/24 15:49:21 by asaux            ###   ########.fr       */
+/*   Updated: 2024/08/26 19:54:01 by asaux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ void	sigint(int signum)
 		rl_replace_line("", 0);
 		rl_redisplay();
 	}
+	else
+		printf("\n");
 }
 
 /*

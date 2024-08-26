@@ -6,7 +6,7 @@
 /*   By: asaux <asaux@student.42perpignan.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 13:55:09 by asaux             #+#    #+#             */
-/*   Updated: 2024/08/25 10:39:03 by asaux            ###   ########.fr       */
+/*   Updated: 2024/08/26 19:54:34 by asaux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ void	env_builtin(t_data *data)
 	i = 0;
 	while (data->env[i])
 	{
-		printf("%s\n", data->env[i]);
+		if (ft_strchr(data->env[i], '='))
+			printf("%s\n", data->env[i]);
 		i++;
 	}
 	data->exit_status = 0;
