@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asaux <asaux@student.42.fr>                +#+  +:+       +#+        */
+/*   By: asaux <asaux@student.42perpignan.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 17:28:06 by asaux             #+#    #+#             */
-/*   Updated: 2023/10/16 16:40:22 by asaux            ###   ########.fr       */
+/*   Updated: 2024/08/27 15:34:05 by asaux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <stdlib.h>
 # include <string.h>
 # include <stdio.h>
+# include <stdarg.h>
 
 typedef struct s_list
 {
@@ -109,5 +110,23 @@ void	ft_lstclear(t_list **lst, void (*del)(void *));
 void	ft_lstiter(t_list *lst, void (*f)(void *));
 
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
+
+int		ft_printf(const char *str, ...);
+
+int		check_conv(char c);
+
+void	put_format(int conv, va_list liste, int *count);
+
+void	ft_putchar_pf(char c, int *count);
+
+void	ft_putstr_pf(char *s, int *count);
+
+void	ft_putnbr_pf(int n, int *count);
+
+void	ft_putnbr_ui_pf(unsigned int nbr, char *base, int *count);
+
+void	ft_putnbr_ul_pf(unsigned long nbr, char *base, int *count);
+
+void	print_address(va_list liste, int *count);
 
 #endif
