@@ -6,7 +6,7 @@
 /*   By: asaux <asaux@student.42perpignan.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 18:03:17 by asaux             #+#    #+#             */
-/*   Updated: 2024/08/26 17:21:39 by asaux            ###   ########.fr       */
+/*   Updated: 2024/08/27 16:02:07 by asaux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,7 @@ int	main(int ac, char **av, char **env)
 
 	(void) av;
 	if (ac > 1)
-		return (printf("Error, no argument needed\n"), 1);
+		return (ft_printf("Error, no argument needed\n"), 1);
 	data.env = dupenv(env);
 	data.exit_status = 127;
 	data.save_node = NULL;
@@ -142,7 +142,7 @@ int	main(int ac, char **av, char **env)
 	{
 		input = readline("▶️  minishell > ");
 		if (input == NULL)
-			return (printf("exit\n"), free_array(data.env), 0);
+			return (ft_printf("exit\n"), free_array(data.env), 0);
 		else
 			prompt_launch(input, &data, &firstnode);
 		free(input);

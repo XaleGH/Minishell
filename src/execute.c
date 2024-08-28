@@ -6,7 +6,7 @@
 /*   By: asaux <asaux@student.42perpignan.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 14:44:08 by asaux             #+#    #+#             */
-/*   Updated: 2024/08/25 17:10:38 by asaux            ###   ########.fr       */
+/*   Updated: 2024/08/28 09:30:57 by asaux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,17 +41,17 @@ int	exec_cmd(char **cmd, t_data *data)
 		return (0);
 	pid = fork();
 	if (pid < 0)
-		return (perror("fork"), exit(1), 0);
+		return (ft_printf("fork"), exit(1), 0);
 	else if (pid == 0)
 	{
 		if (execve(pathfind, cmd, data->env) == -1)
-			return (free(pathfind), printf("exec error\n"), 0);
+			return (free(pathfind), ft_printf("exec error\n"), exit(1), 0);
 	}
 	else
 	{
 		free(pathfind);
 		if (waitpid(pid, &status, 0) == -1)
-			return (perror("waitpid"), exit(1), 0);
+			return (ft_printf("waitpid"), exit(1), 0);
 		if (WIFEXITED(status))
 			data->exit_status = WEXITSTATUS(status);
 	}

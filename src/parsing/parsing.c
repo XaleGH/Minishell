@@ -6,7 +6,7 @@
 /*   By: asaux <asaux@student.42perpignan.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 14:12:33 by asaux             #+#    #+#             */
-/*   Updated: 2024/08/25 15:52:32 by asaux            ###   ########.fr       */
+/*   Updated: 2024/08/27 17:18:10 by asaux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,4 +118,20 @@ t_cmdgrp	*init_parsing(char *line, t_data *data)
 	if (!parse_on_pipe(node, firstnode, data))
 		return ((data->exit_status = 2), NULL);
 	return (firstnode);
+}
+
+/*
+ * Checks if a character is a redirection token.
+ *
+ * This function determines whether the provided character is a redirection 
+ * token, which in this context are the characters '>' and '<'.
+ *
+ * @param c The character to be checked.
+ *
+ * @return Returns 1 if the character is a redirection token ('>' or '<'), 
+ * otherwise returns 0.
+ */
+int	is_redir_token(char c)
+{
+	return (c == '>' || c == '<');
 }

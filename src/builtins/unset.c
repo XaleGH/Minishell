@@ -6,7 +6,7 @@
 /*   By: asaux <asaux@student.42perpignan.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 13:58:57 by asaux             #+#    #+#             */
-/*   Updated: 2024/08/25 11:24:03 by asaux            ###   ########.fr       */
+/*   Updated: 2024/08/28 10:39:53 by asaux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ void	unset_builtin(char **args, t_data *data)
 	while (args[++i])
 	{
 		j = search_row(data, args[i]);
-		if (j == -1 || data->env[j][ft_strlen(args[i])] != '=')
-			printf("unset : %s : Invalid argument\n", args[i]);
+		if (j == -1)
+			ft_printf("unset : %s : Invalid argument\n", args[i]);
 		else
 		{
 			free(data->env[j]);

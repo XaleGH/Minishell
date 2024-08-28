@@ -6,7 +6,7 @@
 /*   By: asaux <asaux@student.42perpignan.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 15:09:57 by asaux             #+#    #+#             */
-/*   Updated: 2024/08/25 17:17:59 by asaux            ###   ########.fr       */
+/*   Updated: 2024/08/28 09:41:33 by asaux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,10 @@ void	init_pipe(t_cmdgrp *node, t_data *data)
 	int	pid;
 
 	if (pipe(fd) == -1)
-		return (perror("pipe init error"), exit (1));
+		return (ft_printf("pipe init error"), exit (1));
 	pid = fork();
 	if (pid == -1)
-		return (perror("fork error"), exit (1));
+		return (ft_printf("fork error"), exit (1));
 	else if (pid == 0)
 	{
 		close(fd[0]);
@@ -120,6 +120,8 @@ int	pipex(int nbcmd, t_cmdgrp *node, t_data *data)
 		i++;
 	}
 	execute_ms(node, data);
+	while (wait(NULL) > 0)
+		;
 	dup2(stdin_copy, STDIN_FILENO);
 	dup2(stdout_copy, STDOUT_FILENO);
 	close(stdin_copy);

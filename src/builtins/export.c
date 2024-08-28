@@ -6,7 +6,7 @@
 /*   By: asaux <asaux@student.42perpignan.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 13:58:34 by asaux             #+#    #+#             */
-/*   Updated: 2024/08/26 19:54:55 by asaux            ###   ########.fr       */
+/*   Updated: 2024/08/27 16:00:48 by asaux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	check_arg(char *arg)
 	{
 		i++;
 	}
-	printf("export : %s : Invalid argument\n", arg);
+	ft_printf("export : %s : Invalid argument\n", arg);
 	return (1);
 }
 

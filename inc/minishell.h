@@ -6,14 +6,15 @@
 /*   By: asaux <asaux@student.42perpignan.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 18:03:50 by asaux             #+#    #+#             */
-/*   Updated: 2024/08/26 14:14:08 by asaux            ###   ########.fr       */
+/*   Updated: 2024/08/27 16:49:41 by asaux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-//Library
+/* Library */
+
 # include "../libft/libft.h"
 # include <stdio.h>
 # include <unistd.h>
@@ -26,7 +27,7 @@
 # include <sys/wait.h>
 # include <fcntl.h>
 
-//Struct
+/* Struct */
 
 typedef struct s_path
 {
@@ -164,6 +165,7 @@ char		*get_word(char *s, int *i, char c);
 t_cmdgrp	*init_parsing(char *line, t_data *data);
 t_cmdgrp	*init_cmdgrp(char *line, int len);
 int			parse_redexec(t_cmdgrp *node, t_cmdgrp *firstnode, t_data *data);
+int			is_redir_token(char c);
 
 //parsing/utils_parsing.c
 int			is_separator(char c);
@@ -179,10 +181,10 @@ void		checkquote_arg(char c, char next_c, int *squote, int *dquote);
 
 //parsing/redir_parsing.c
 int			parse_redir(t_cmdgrp *node, int i, t_cmdgrp *firstnode);
-int			is_redir_token(char c);
 void		redir_open(t_cmdgrp *node, int i, int type);
 int			heredoc(char *stopword);
-int			heredoc_close(int fd);
+int			heredoc_close(int fd, char *herename);
+char		*select_heredoc(void);
 
 //parsing/pipe_parsing.c
 int			parse_on_pipe(t_cmdgrp *node, t_cmdgrp *firstnode, t_data *data);

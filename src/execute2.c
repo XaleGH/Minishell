@@ -6,7 +6,7 @@
 /*   By: asaux <asaux@student.42perpignan.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 14:52:01 by asaux             #+#    #+#             */
-/*   Updated: 2024/08/26 19:53:13 by asaux            ###   ########.fr       */
+/*   Updated: 2024/08/27 16:02:58 by asaux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,7 @@ char	*real_pathfind(char **cmd, char **env, char *pathfind)
 	{
 		pathfind = get_path(cmd, env, path);
 		if (!pathfind)
-			return (free(path), printf("%s: command not found\n", cmd[0]),
+			return (free(path), ft_printf("%s: command not found\n", cmd[0]),
 				NULL);
 	}
 	return (free(path), pathfind);

@@ -6,7 +6,7 @@
 /*   By: asaux <asaux@student.42perpignan.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 14:59:58 by asaux             #+#    #+#             */
-/*   Updated: 2024/08/25 15:52:23 by asaux            ###   ########.fr       */
+/*   Updated: 2024/08/27 15:59:05 by asaux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ void	parsing_error(t_cmdgrp *firstnode, int code, char c)
 {
 	free_nodes(firstnode);
 	if (code == 0)
-		printf("minishell: syntax error near unexpected token '%c'\n", c);
+		ft_printf("minishell: syntax error near unexpected token '%c'\n", c);
 	if (code == 1)
-		printf("minishell: create or open file near token '%c'\n", c);
+		ft_printf("minishell: create or open file near token '%c'\n", c);
 }

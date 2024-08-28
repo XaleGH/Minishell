@@ -6,7 +6,7 @@
 /*   By: asaux <asaux@student.42perpignan.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 13:55:32 by asaux             #+#    #+#             */
-/*   Updated: 2024/08/26 14:30:23 by asaux            ###   ########.fr       */
+/*   Updated: 2024/08/27 16:00:36 by asaux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int	exit_utils(char **args, long int *num)
 		if (args[1][i] == '-')
 			i++;
 		if (!ft_isdigit(args[1][i]))
-			return (printf("bash : %s : %s : numeric argument required\n",
+			return (ft_printf("bash : %s : %s : numeric argument required\n",
 					args[0], args[1]), 1);
 		else
 			i++;
@@ -110,7 +110,7 @@ int	exit_builtin(char **args, t_data *data)
 	shlvl = "SHLVL=";
 	printf("exit\n");
 	if (count_args(args) > 2)
-		return (printf("bash : %s : too many arguments\n", args[0]), 1);
+		return (ft_printf("bash : %s : too many arguments\n", args[0]), 1);
 	if (count_args(args) == 2)
 		exit_utils(args, &num);
 	i = search_row(data, shlvl);

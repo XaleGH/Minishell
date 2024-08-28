@@ -6,7 +6,7 @@
 /*   By: asaux <asaux@student.42perpignan.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 13:52:14 by asaux             #+#    #+#             */
-/*   Updated: 2024/08/25 20:03:38 by asaux            ###   ########.fr       */
+/*   Updated: 2024/08/27 16:00:11 by asaux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ char	*get_home(t_data *data)
 	}
 	if (!data->env[i])
 	{
-		printf("HOME not set in env");
+		ft_printf("HOME not set in env");
 		return (free(path), NULL);
 	}
 	path = ft_strjoin(path, &data->env[i][j]);
@@ -66,7 +66,7 @@ int	switch_dir(char *path)
 {
 	if (chdir(path) == -1)
 	{
-		printf("cd : %s : no such file or directory\n", path);
+		ft_printf("cd : %s : no such file or directory\n", path);
 		return (1);
 	}
 	return (0);
@@ -153,7 +153,7 @@ int	cd_builtin(char **args, t_data *data)
 	cur_dir = NULL;
 	old_dir = getcwd(old_dir, 0);
 	if (args[2])
-		return (printf("bash : cd : too many arguments\n"), 1);
+		return (ft_printf("bash : cd : too many arguments\n"), 1);
 	if (!args[1])
 	{
 		if (go_home(data) == 1)

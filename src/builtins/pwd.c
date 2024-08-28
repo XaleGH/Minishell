@@ -6,7 +6,7 @@
 /*   By: asaux <asaux@student.42perpignan.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 13:58:49 by asaux             #+#    #+#             */
-/*   Updated: 2024/08/25 11:20:55 by asaux            ###   ########.fr       */
+/*   Updated: 2024/08/27 16:00:57 by asaux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	pwd_builtin(t_data *data)
 	path = NULL;
 	path = getcwd(path, 0);
 	if (!path)
-		return (printf("no pwd\n"), exit(1));
+		return (ft_printf("no pwd\n"), exit(1));
 	printf("%s\n", path);
 	free(path);
 	data->exit_status = 0;

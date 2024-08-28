@@ -6,7 +6,7 @@
 /*   By: asaux <asaux@student.42perpignan.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 14:25:19 by asaux             #+#    #+#             */
-/*   Updated: 2024/08/25 10:18:44 by asaux            ###   ########.fr       */
+/*   Updated: 2024/08/27 17:36:32 by asaux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,7 @@ int	parse_redir(t_cmdgrp *node, int i, t_cmdgrp *firstnode)
 	}
 	if (node->fd == -1)
 		return (parsing_error(firstnode, 1, node->arg[i][0]), 0);
-	if (node->type != HEREDOC)
-		node->arg = rm_from_array(node->arg, i + 1);
+	node->arg = rm_from_array(node->arg, i + 1);
 	node->arg = rm_from_array(node->arg, i);
 	return (1);
 }
@@ -129,9 +128,11 @@ int	heredoc(char *stopword)
 {
 	char	*line;
 	int		file;
+	char	*herename;
 
 	line = NULL;
-	file = open("here_doc", O_CREAT | O_RDWR | O_TRUNC, 0777);
+	herename = select_heredoc();
+	file = open(herename, O_CREAT | O_RDWR | O_TRUNC, 0777);
 	if (file == -1)
 		return (-1);
 	while (1)
@@ -141,7 +142,7 @@ int	heredoc(char *stopword)
 			return (1);
 		if (ft_strlen(stopword) == ft_strlen(line)
 			&& ft_strncmp(line, stopword, ft_strlen(stopword)) == 0)
-			return (free(line), heredoc_close(file));
+			return (free(line), heredoc_close(file, herename));
 		ft_putstr_fd(line, file);
 		ft_putchar_fd('\n', file);
 		free(line);
@@ -161,25 +162,54 @@ int	heredoc(char *stopword)
  *
  * @return Returns the new file descriptor for the reopened "here_doc" file.
  */
-int	heredoc_close(int fd)
+int	heredoc_close(int fd, char *herename)
 {
 	close(fd);
-	fd = open("here_doc", O_RDONLY, 0777);
+	fd = open(herename, O_RDONLY, 0777);
+	unlink(herename);
+	free(herename);
 	return (fd);
 }
 
 /*
- * Checks if a character is a redirection token.
+ * Generates a unique filename for a heredoc temporary file.
  *
- * This function determines whether the provided character is a redirection 
- * token, which in this context are the characters '>' and '<'.
+ * This function creates a unique filename by appending a number to the prefix
+ * "here_doc".
+ * It checks if the generated filename already exists in the filesystem. If it
+ * does, the function increments the number and tries again until it finds a
+ * filename that does not exist.
+ * The function performs the following steps:
  *
- * @param c The character to be checked.
+ * 1. Initializes a counter `i` to 0 and converts it to a string `number`.
+ * 2. Creates the initial filename by concatenating "here_doc" with `number`.
+ * 3. Checks if a file with the generated filename already exists using the
+ * `access` function.
+ * If it exists, the filename is freed, the counter is incremented, and a new
+ * filename is generated.
+ * 4. This process repeats until a unique filename is found.
+ * 5. Returns the unique filename as a dynamically allocated string.
  *
- * @return Returns 1 if the character is a redirection token ('>' or '<'), 
- * otherwise returns 0.
+ * @return A pointer to the unique heredoc filename as a string. 
+ * The caller is responsible for freeing the returned string.
  */
-int	is_redir_token(char c)
+char	*select_heredoc(void)
 {
-	return (c == '>' || c == '<');
+	int		i;
+	char	*herestr;
+	char	*number;
+
+	i = 0;
+	number = ft_itoa(i);
+	herestr = ft_strjoin("here_doc", number);
+	free(number);
+	while (access(herestr, F_OK) == 0)
+	{
+		free(herestr);
+		i++;
+		number = ft_itoa(i);
+		herestr = ft_strjoin("here_doc", number);
+		free(number);
+	}
+	return (herestr);
 }
